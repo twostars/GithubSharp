@@ -30,7 +30,7 @@ namespace GithubSharp.MvcSample.MvcApplication.Controllers
             string BranchName,
             string FilePath)
         {
-            var commits = BaseAPI.CommitsForFile(
+            var commits = BaseAPI.CommitsForPath(
                 Username,
                 RepositoryName,
                 BranchName,

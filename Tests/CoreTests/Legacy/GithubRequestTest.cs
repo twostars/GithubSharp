@@ -83,13 +83,13 @@ namespace GithubSharp.Tests.CoreTests
 
             Assert.IsNotNull(commit);
             Assert.IsNotNull(commit.Result);
-            Assert.IsNotNullOrEmpty(commit.Result.sha);
-            Assert.IsNotNull(commit.Result.committer.date);
-            Assert.IsNotNull(commit.Result.author.name);
-            Assert.IsNotNull(commit.Result.message);
-            Assert.IsNotNull(commit.Result.parents);
-            Assert.IsTrue(commit.Result.parents.Count > 0);
-            Assert.IsNotNull(commit.Result.tree.sha);
+            Assert.IsNotNullOrEmpty(commit.Result.Sha);
+            Assert.IsNotNull(commit.Result.CommitDetails.Author.Date);
+            Assert.IsNotNull(commit.Result.CommitDetails.Author.Name);
+            Assert.IsNotNull(commit.Result.CommitDetails.Message);
+            Assert.IsNotNull(commit.Result.Parents);
+            Assert.IsTrue(commit.Result.Parents.Count > 0);
+            Assert.IsNotNull(commit.Result.CommitDetails.Tree.Sha);
         }
 
         [Test]
