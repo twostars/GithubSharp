@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GithubSharp.Core.Base;
+using GithubSharp.Core.Models;
 using GithubSharp.Core.Services;
 
 namespace GithubSharp.Core.API
@@ -56,27 +57,20 @@ namespace GithubSharp.Core.API
                                .ToArray();
         }
 
-        public IEnumerable<Models.TagOrBranch> Tags(string repositoryName, string username)
+        public Tag[] Tags(string repositoryName, string username)
         {
             LogProvider.LogMessage(string.Format("Repository.Tags - RepositoryName : '{0}' , Username : '{1}' ", repositoryName, username));
             var url = string.Format("repos/{0}/{1}/tags", username, repositoryName);
-            var result = ConsumeJsonUrl<Models.Internal.TagCollection>(url);
-            return result == null
-                       ? null
-                       : result.Tags.Dict.ToList()
-                               .Select(p => new Models.TagOrBranch { Name = p.Key, Sha = p.Value })
-                               .ToArray();
+            var result = ConsumeJsonUrl<Tag[]>(url);
+            return result;
         }
 
-        public Models.TagOrBranch[] Branches(string repositoryName, string username)
+        public Branch[] Branches(string repositoryName, string username)
         {
             LogProvider.LogMessage(string.Format("Repository.Branches - RepositoryName : '{0}' , Username : '{1}' ", repositoryName, username));
-            var url = string.Format("repos/show/{1}/{0}/branches", repositoryName, username);
-            var result = ConsumeJsonUrl<Models.Internal.BranchesCollection>(url);
-            return result == null
-                       ? null
-                       : result.Branches.Dict.Select(p => new Models.TagOrBranch { Name = p.Key, Sha = p.Value })
-                               .ToArray();
+            var url = string.Format("repos/{0}/{1}/branches", username, repositoryName);
+            var result = ConsumeJsonUrl<Branch[]>(url);
+            return result;
         }
     }
 }

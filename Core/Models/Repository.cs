@@ -35,7 +35,7 @@ namespace GithubSharp.Core.Models
 
         [DataMember(Name = "collaborators_url")]
         public string CollaboratorsUrl { get; set; }
-        
+
         [DataMember(Name = "homepage")]
         public string Homepage { get; set; }
 
@@ -141,9 +141,30 @@ namespace GithubSharp.Core.Models
     }
 
     [DataContract]
-    public class TagOrBranch
+    public class Tag : Branch
     {
-        public string Name { get; set; }
+        [DataMember(Name = "tarball_url")]
+        private string TarballUrl { get; set; }
+
+        [DataMember(Name = "zipball_url")]
+        private string ZipballUrl { get; set; }
+
+    }
+    public class CommitSummary
+    {
+        [DataMember(Name = "sha")]
         public string Sha { get; set; }
+        [DataMember(Name = "url")]
+        public string Url { get; set; }
+    }
+
+    [DataContract]
+    public class Branch
+    {
+        [DataMember(Name = "commit")]
+        private CommitSummary Commit { get; set; }
+
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
     }
 }

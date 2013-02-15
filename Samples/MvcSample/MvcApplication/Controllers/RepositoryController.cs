@@ -166,14 +166,14 @@ namespace GithubSharp.MvcSample.MvcApplication.Controllers
 
         public ActionResult Tags(string RepositoryName, string Username)
         {
-            IEnumerable<TagOrBranch> tags = BaseAPI.Tags(RepositoryName, Username);
+            IEnumerable<TagOrBranchOLD> tags = BaseAPI.Tags(RepositoryName, Username);
 
             return View(GetBaseView(tags));
         }
 
         public ActionResult Branches(string RepositoryName, string Username)
         {
-            IEnumerable<TagOrBranch> tags = BaseAPI.Branches(RepositoryName, Username);
+            IEnumerable<TagOrBranchOLD> tags = BaseAPI.Branches(RepositoryName, Username);
 
             return View(GetBaseView(tags));
         }

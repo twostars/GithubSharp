@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using GithubSharp.Core.API;
 using GithubSharp.Plugins.LogProviders.NullLogger;
 using NUnit.Framework;
@@ -11,13 +8,18 @@ namespace GithubSharp.Tests.CoreTests
     [TestFixture]
     public class RepositoryFixture
     {
-        //http://json2csharp.com/ to create models
-        //http://jsonformat.com/ TO SEE CLEAN JSON MODELS
+        private Repository _repoApi;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _repoApi = new Repository(new BasicCacher.BasicCacher(), new NullLogger());
+        }
+
         [Test]
         public void CanGetRepository()
         {
-            var repoApi = new Repository(new BasicCacher.BasicCacher(), new NullLogger());
-            var repos = repoApi.Get("rhysc", "GithubSharp");          
+            var repos = _repoApi.Get("rhysc", "GithubSharp");
             Assert.NotNull(repos);
             Assert.AreEqual("GithubSharp", repos.Name);
         }
@@ -25,21 +27,28 @@ namespace GithubSharp.Tests.CoreTests
         [Test]
         public void CanSearchRepositories()
         {
-            var repoApi = new Repository(new BasicCacher.BasicCacher(), new NullLogger());
-            var repos = repoApi.Search("GithubSharp").ToArray();
+            var repos = _repoApi.Search("GithubSharp").ToArray();
             Assert.NotNull(repos);
             Assert.IsNotEmpty(repos);
-            Assert.IsNotEmpty(repos.Where(r=>r.Username=="RhysC").ToArray());
+            Assert.IsNotEmpty(repos.Where(r => r.Username == "RhysC").ToArray());
         }
 
         [Test]
         public void CanGetRepositoryTags()
         {
-            var repoApi = new Repository(new BasicCacher.BasicCacher(), new NullLogger());
-            var tags = repoApi.Tags("GithubSharp", "RhysC").ToArray();
+            var tags = _repoApi.Tags("GithubSharp", "RhysC").ToArray();
             Assert.NotNull(tags);
             Assert.IsNotEmpty(tags);
-            Assert.IsNotEmpty(tags.Where(t => t.Name== "DummyTag").ToArray());
+            Assert.IsNotEmpty(tags.Where(t => t.Name == "v0.00").ToArray());//I have put a tag on this repo
+        }
+
+        [Test]
+        public void CanGetRepositoryBranches()
+        {
+            var tags = _repoApi.Branches("GithubSharp", "RhysC").ToArray();
+            Assert.NotNull(tags);
+            Assert.IsNotEmpty(tags);
+            Assert.IsNotEmpty(tags.Where(t => t.Name == "PullRequestDemo").ToArray());
         }
     }
 }
