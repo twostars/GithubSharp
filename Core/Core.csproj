@@ -67,6 +67,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\AuthenticatedRepository.cs" />
+    <Compile Include="API\AuthenticatedUser.cs" />
     <Compile Include="API\PullRequest.cs" />
     <Compile Include="Base\IBaseApi.cs" />
     <Compile Include="Models\Internal\Commit.cs" />
@@ -98,7 +100,6 @@
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Models\GithubUser.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\xyz.cs" />
     <Compile Include="Services\ICacheProvider.cs" />
     <Compile Include="Services\ILogProvider.cs" />
     <Compile Include="GithubRequest.cs" />

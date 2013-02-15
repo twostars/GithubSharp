@@ -159,5 +159,22 @@ namespace GithubSharp.Core.Models
         public string Key { get; set; }
     }
 
-   
+    [DataContract]
+    public class Follower
+    {
+        [DataMember(Name = "login")]
+        public string Login { get; set; }
+        [DataMember(Name = "id")]
+        public int Id { get; set; }
+        [DataMember(Name = "url")]
+        public string Url { get; set; }
+        [DataMember(Name = "avatar_url")]
+        public string AvatarUrl { get; set; }
+        [DataMember(Name = "gravatar_id")]
+        public string GravatarId { get; set; }
+    }
+
+
+
+
 }

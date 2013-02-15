@@ -103,5 +103,7 @@ namespace GithubSharp.Core.API
 
             return ConsumeUrlToString(url);
         }
+
+        
     }
 }

@@ -37,11 +37,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GithubRequestTest.cs" />
+    <Compile Include="Legacy\GistModelTest.cs" />
+    <Compile Include="Legacy\GithubRequestTest.cs" />
     <Compile Include="PullRequestFixture.cs" />
     <Compile Include="RepositoryFixture.cs" />
-    <Compile Include="TestSettings.cs" />
-    <Compile Include="GistModelTest.cs" />
+    <Compile Include="Legacy\TestSettings.cs" />
     <Compile Include="UserFixture.cs" />
   </ItemGroup>
   <ItemGroup>

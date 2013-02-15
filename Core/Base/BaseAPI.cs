@@ -1,88 +1,96 @@
 using System;
+using System.Runtime.Serialization;
 using GithubSharp.Core.Services;
 using System.Collections.Specialized;
 using Newtonsoft.Json;
 
 namespace GithubSharp.Core.Base
 {
-    public class BaseApi : IBaseApi
+    public abstract class BaseApi : IBaseApi
     {
-        public BaseApi(ICacheProvider cache, ILogProvider log)
+        private Url _url;
+
+        protected BaseApi(ICacheProvider cache, ILogProvider log)
         {
             CacheProvider = cache;
             LogProvider = log;
         }
 
+        protected ICacheProvider CacheProvider { get; set; }
+        protected ILogProvider LogProvider { get; set; }
         private Models.GithubUser CurrentUser { get; set; }
+
         private Url UrlConsumer
         {
             get { return _url ?? (_url = new Url(CacheProvider, LogProvider)); }
         }
-        private Url _url;
+        protected string CurrentUsername { get { return HasUser ? CurrentUser.Name : string.Empty; } }
+        private bool HasUser { get { return CurrentUser != null && !string.IsNullOrEmpty(CurrentUser.Name) && !string.IsNullOrEmpty(CurrentUser.APIToken); } }
 
-        public void Authenticate(Models.GithubUser User)
+        public void Authenticate(Models.GithubUser user)
         {
-            if (User == null)
+            if (user == null)
                 LogProvider.LogMessage("Authenticate => Null user");
             else
-                LogProvider.LogMessage("Authenticate => Name : {0}, APIToken : {1}", User.Name, User.APIToken);
+                LogProvider.LogMessage("Authenticate => Name : {0}, APIToken : {1}", user.Name, user.APIToken);
 
-            CurrentUser = User;
+            CurrentUser = user;
         }
 
-        public ICacheProvider CacheProvider { get; set; }
-        public ILogProvider LogProvider { get; set; }
-
-        internal byte[] ConsumeUrlToBinary(string Url)
+        public T ConsumeJsonUrlAndPostData<T>(string url) where T : class
         {
-            var url = GetAuthenticatedUrl(Url);
-
-            return UrlConsumer.GetBinaryFromURL(url);
+            return ConsumeJsonUrlAndPostData<T>(url, new NameValueCollection());
         }
 
-        internal byte[] ConsumeUrlToBinaryAndPostData(string Url)
+        public T ConsumeJsonUrlAndPostData<T>(string url, NameValueCollection formValues) where T : class
         {
-            return ConsumeUrlToBinaryAndPostData(Url, new NameValueCollection());
+            var result = ConsumeUrlToStringAndPostData(url, formValues);
+            if (result == null)
+                return null;
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(result);
+            }
+            catch (Exception error)
+            {
+                if (LogProvider.HandleAndReturnIfToThrowError(error))
+                    throw;
+                return null;
+            }
         }
-
-        internal byte[] ConsumeUrlToBinaryAndPostData(string Url, NameValueCollection FormValues)
-        {
-            var url = GetAuthenticatedUrl(Url);
-
-            return UrlConsumer.UploadValuesAndGetBinary(url, FormValues);
-        }
-
-        private string GetAuthenticatedUrl(string Url)
+        
+        private string GetAuthenticatedUrl(string urlToUseAuthentication)
         {
             var url = string.Format("{0}{1}{2}",
-                Url.StartsWith("http") ? Url : UrlConsumer.GithubBaseURL,
-                Url.StartsWith("http") ? "" : Url,
+                urlToUseAuthentication.StartsWith("http") ? urlToUseAuthentication : UrlConsumer.GithubBaseURL,
+                urlToUseAuthentication.StartsWith("http") ? "" : urlToUseAuthentication,
                 UrlConsumer.GithubAuthenticationQueryString(CurrentUser));
             return url;
         }
 
-        internal string ConsumeUrlToString(string Url)
+        protected string ConsumeUrlToString(string url)
         {
-            var url = GetAuthenticatedUrl(Url);
+            var authenticationUrl = GetAuthenticatedUrl(url);
 
-            return UrlConsumer.GetStringFromURL(url);
+            return UrlConsumer.GetStringFromURL(authenticationUrl);
+        }
+        protected byte[] ConsumeUrlToBinary(string url)
+        {
+            var authenticationUrl = GetAuthenticatedUrl(url);
+
+            return UrlConsumer.GetBinaryFromURL(authenticationUrl);
+        }
+        
+        private string ConsumeUrlToStringAndPostData(string url, NameValueCollection formValues)
+        {
+            var authenticationUrl = GetAuthenticatedUrl(url);
+
+            return UrlConsumer.UploadValuesAndGetString(authenticationUrl, formValues);
         }
 
-        internal string ConsumeUrlToStringAndPostData(string Url)
+        protected T ConsumeJsonUrl<T>(string url) where T : class
         {
-            return ConsumeUrlToStringAndPostData(Url, new NameValueCollection());
-        }
-
-        public string ConsumeUrlToStringAndPostData(string Url, NameValueCollection FormValues)
-        {
-            var url = GetAuthenticatedUrl(Url);
-
-            return UrlConsumer.UploadValuesAndGetString(url, FormValues);
-        }
-
-        public T ConsumeJsonUrl<T>(string Url) where T : class
-        {
-            var result = ConsumeUrlToString(Url);
+            var result = ConsumeUrlToString(url);
             if (result == null)
                 return null;
             try
@@ -97,41 +105,14 @@ namespace GithubSharp.Core.Base
                 return null;
             }
         }
-
-        public T ConsumeJsonUrlAndPostData<T>(string Url) where T : class
+        
+        protected void Authenticate()
         {
-            return ConsumeJsonUrlAndPostData<T>(Url, new NameValueCollection());
+            //TODO - this is no longer correct
+            if (HasUser) return;
+            var error = new Exception("You need to provide a valid GithubUser with an api token (see http://github.com/blog/170-token-authentication)");
+            if (LogProvider.HandleAndReturnIfToThrowError(error))
+                throw error;
         }
-
-        public T ConsumeJsonUrlAndPostData<T>(string Url, NameValueCollection FormValues) where T : class
-        {
-            var result = ConsumeUrlToStringAndPostData(Url, FormValues);
-            if (result == null)
-                return null;
-            try
-            {
-                return JsonConvert.DeserializeObject<T>(result);
-            }
-            catch (Exception error)
-            {
-                if (LogProvider.HandleAndReturnIfToThrowError(error))
-                    throw;
-                return null;
-            }
-        }
-
-        public void Authenticate()
-        {
-            if (!HasUser)
-            {
-                var error = new Exception("You need to provide a valid GithubUser with an api token (see http://github.com/blog/170-token-authentication)");
-                if (LogProvider.HandleAndReturnIfToThrowError(error))
-                    throw error;
-            }
-        }
-
-        public string CurrentUsername { get { return HasUser ? CurrentUser.Name : string.Empty; } }
-
-        public bool HasUser { get { return CurrentUser != null && !string.IsNullOrEmpty(CurrentUser.Name) && !string.IsNullOrEmpty(CurrentUser.APIToken); } }
     }
 }

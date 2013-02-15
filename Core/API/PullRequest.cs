@@ -1,54 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GithubSharp.Core.Services;
-using System.Collections.Specialized;
 
 namespace GithubSharp.Core.API
 {
     public class PullRequest : Base.BaseApi
     {
-        public PullRequest(ICacheProvider CacheProvider, ILogProvider LogProvider) : base(CacheProvider, LogProvider) { }
+        public PullRequest(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
 
-        public IEnumerable<Models.PullRequest> List(string Username, string RepositoryName)
+        public IEnumerable<Models.PullRequest> List(string username, string repositoryName)
         {
-            return List(Username, RepositoryName, null);
+            return List(username, repositoryName, null);
         }
 
-        public IEnumerable<Models.PullRequest> List(string Username, string RepositoryName, string State)
+        public IEnumerable<Models.PullRequest> List(string username, string repositoryName, string state)
         {
-            LogProvider.LogMessage(string.Format("PullRequest.List - {0} - {1} - {2}", Username, RepositoryName, State));
-            var url = string.Format("repos/{0}/{1}/pulls{2}", Username, RepositoryName, string.IsNullOrEmpty(State) ? "" : "/" + State);
+            LogProvider.LogMessage(string.Format("PullRequest.List - {0} - {1} - {2}", username, repositoryName, state));
+            var url = string.Format("repos/{0}/{1}/pulls{2}",
+                                    username,
+                                    repositoryName,
+                                    string.IsNullOrEmpty(state) ? "" : "?state=" + state);
             var result = ConsumeJsonUrl<Models.PullRequest[]>(url);
             return result;
         }
 
-        public Models.PullRequest GetById(string Username, string RepositoryName, string Id)
+        public Models.PullRequest GetById(string username, string repositoryName, string id)
         {
-            LogProvider.LogMessage(string.Format("PullRequest.GetById - {0} - {1} - {2}", Username, RepositoryName, Id));
-            var url = string.Format("pulls/{0}/{1}/{2}", Username, RepositoryName, Id);
-            var result = ConsumeJsonUrl<Models.Internal.PullRequestContainer>(url);
-            return result == null ? null : result.PullRequest;
+            LogProvider.LogMessage(string.Format("PullRequest.GetById - {0} - {1} - {2}", username, repositoryName, id));
+            var url = string.Format("repos/{0}/{1}/pulls/{2}", username, repositoryName, id);
+            var result = ConsumeJsonUrl<Models.PullRequest>(url);
+            return result;
         }
 
-        public Models.PullRequest Create(string Username, string RepositoryName, string BaseRef, string HeadRef, string Title, string Body)
+        public Models.PullRequest Create(string username, string repositoryName, string baseRef, string headRef, string title, string body)
         {
-            LogProvider.LogMessage(string.Format("PullRequest.Create - {0} - {1} - {2} - {3} - {4}", Username, RepositoryName, BaseRef, HeadRef, Title));
-            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(RepositoryName) || string.IsNullOrEmpty(BaseRef) || string.IsNullOrEmpty(HeadRef) || string.IsNullOrEmpty(Title) || string.IsNullOrEmpty(Body))
-                return null;
+            throw new NotImplementedException("Not yet inmplemented for V3");
+            //LogProvider.LogMessage(string.Format("PullRequest.Create - {0} - {1} - {2} - {3} - {4}", username, repositoryName, baseRef, headRef, title));
+            //if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(repositoryName) || string.IsNullOrEmpty(baseRef) || string.IsNullOrEmpty(headRef) || string.IsNullOrEmpty(title) || string.IsNullOrEmpty(body))
+            //    return null;
 
-            var url = string.Format("pulls/{0}/{1}", Username, RepositoryName);
+            //var url = string.Format("pulls/{0}/{1}", username, repositoryName);
 
-            var formValues = new NameValueCollection();
-            formValues.Add("pull[base]", BaseRef);
-            formValues.Add("pull[head]", HeadRef);
-            formValues.Add("pull[title]", Title);
-            formValues.Add("pull[body]", Body);
+            //var formValues = new NameValueCollection();
+            //formValues.Add("pull[base]", baseRef);
+            //formValues.Add("pull[head]", headRef);
+            //formValues.Add("pull[title]", title);
+            //formValues.Add("pull[body]", body);
 
-            var result = ConsumeJsonUrlAndPostData<Models.Internal.PullRequestContainer>(url, formValues);
+            //var result = ConsumeJsonUrlAndPostData<Models.Internal.PullRequestContainer>(url, formValues);
 
-            return result != null ? result.PullRequest : null;
+            //return result != null ? result.PullRequest : null;
         }
     }
 }

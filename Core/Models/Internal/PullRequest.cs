@@ -13,7 +13,7 @@ namespace GithubSharp.Core.Models.Internal
         [DataMember(Name = "pulls")]
         public IEnumerable<Models.PullRequest> PullRequests { get; set; }
     }
-
+    [Obsolete]
     [DataContract]
     internal class PullRequestContainer
     {
