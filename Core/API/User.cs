@@ -16,14 +16,14 @@ namespace GithubSharp.Core.API
         /// </summary>
         /// <param name="search">search string</param>
         /// <returns>Stripped down details of the users</returns>
-        public IEnumerable<UserInCollection> Search(string search)
+        public IEnumerable<UserSearchResult> Search(string search)
         {
             LogProvider.LogMessage(string.Format("User.Search - '{0}'", search));
-            var url = string.Format("{0}{1}",
-                                    "user/search/",
-                                    search);
-            var result = ConsumeJsonUrl<Models.Internal.UsersCollection<Models.UserInCollection>>(url);
-            return result == null ? null : result.Users;
+            var url = string.Format("legacy/user/search/{0}", search);
+            var result = ConsumeJsonUrl<UserSearchResults>(url);
+            if (result == null || result.Users == null)
+                return new UserSearchResult[] { };
+            return result.Users;
         }
 
         /// <summary>

@@ -4,53 +4,52 @@ using System.Runtime.Serialization;
 namespace GithubSharp.Core.Models
 {
     [DataContract]
-    public class UserInCollection
+    public class UserSearchResults
     {
-        [DataMember(Name = "name")]
-        public string Name { get; set; }
-
-        [DataMember(Name = "location")]
-        public string Location { get; set; }
-
-        [DataMember(Name = "followers")]
-        public int Followers { get; set; }
-
-        [DataMember(Name = "username")]
-        public string Username { get; set; }
-
-        [DataMember(Name = "language")]
-        public string Language { get; set; }
-
-        [DataMember(Name = "fullname")]
-        public string Fullname { get; set; }
-
-        [DataMember(Name = "repos")]
-        public int Repos { get; set; }
-
-        [DataMember(Name = "id")]
-        public string Id { get; set; }
-
-        [DataMember(Name = "type")]
-        public string Type { get; set; }
-
-        [DataMember(Name = "pushed")]
-        private string PrivatePushed
-        {
-            get { return Pushed.ToString(); }
-            set { Pushed = DateTime.Parse(value); }
-        }
-        public DateTime Pushed { get; set; }
-
-        [DataMember(Name = "score")]
-        public float Score { get; set; }
-
+        [DataMember(Name = "users")]
+        public UserSearchResult[] Users { get; set; }
+    }
+    [DataContract]
+    public class UserSearchResult
+    {
         [DataMember(Name = "created")]
         private string PrivateCreated
         {
             get { return Created.ToString(); }
             set { Created = DateTime.Parse(value); }
         }
+
         public DateTime Created { get; set; }
+
+        [DataMember(Name = "followers")]
+        public int Followers { get; set; }
+
+        [DataMember(Name = "fullname")]
+        public string Fullname { get; set; }
+
+        [DataMember(Name = "id")]
+        public string Id { get; set; }
+
+        [DataMember(Name = "language")]
+        public string Language { get; set; }
+
+        [DataMember(Name = "location")]
+        public string Location { get; set; }
+
+        [DataMember(Name = "login")]
+        public string Login { get; set; }
+
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+
+        [DataMember(Name = "repos")]
+        public int Repos { get; set; }
+
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
+
+        [DataMember(Name = "username")]
+        public string UserName { get; set; }
     }
 
     [DataContract]

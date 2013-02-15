@@ -44,10 +44,22 @@ namespace GithubSharp.Tests.CoreTests
         {
             var watchedRepos = _userApi.WatchedRepositories("rhysc").ToArray();
             Assert.NotNull(watchedRepos);
-            Assert.IsNotEmpty(watchedRepos);//a sad day when this fails ;)
+            Assert.IsNotEmpty(watchedRepos);
             foreach (var repo in watchedRepos)
             {
                 Assert.IsNotNullOrEmpty(repo.FullName);
+            }
+        }
+
+        [Test]
+        public void CanSearchForUsers()
+        {
+            var users = _userApi.Search("rhysc").ToArray();
+            Assert.NotNull(users);
+            Assert.IsNotEmpty(users.Where(u => u.UserName == "RhysC").ToArray());
+            foreach (var user in users)
+            {
+                Assert.IsNotNullOrEmpty(user.Name);
             }
         }
     }
