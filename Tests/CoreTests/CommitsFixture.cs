@@ -40,13 +40,13 @@ namespace GithubSharp.Tests.CoreTests
         [Test]
         public void CanGetCommitsPath()
         {
-
-            //TODO - test failing - wife waiting for me...
-            var commits = _commitApi.CommitsForPath("Rhysc", "GithubSharp", "master", @"\Core\API\");
+            var commits = _commitApi.CommitsForPath("Rhysc", "GithubSharp", "PullRequestDemo", @"/Tests/CoreTests/UserFixture.cs");
             Assert.IsNotNull(commits);
+            Assert.IsNotEmpty(commits);
             foreach (var commit in commits)
             {
                 Assert.IsNotNullOrEmpty(commit.Sha);
+                Assert.NotNull(commit.Commit.Author.Email);//Could assert on all props...
             }
         }
     }

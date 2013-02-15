@@ -91,7 +91,7 @@
     <Compile Include="API\Network.cs" />
     <Compile Include="API\User.cs" />
     <Compile Include="Base\JsonConverter.cs" />
-    <Compile Include="Models\Commit.cs" />
+    <Compile Include="Models\CommitRoot.cs" />
     <Compile Include="Models\Internal\Repository.cs" />
     <Compile Include="Models\Internal\User.cs" />
     <Compile Include="Models\Network.cs" />

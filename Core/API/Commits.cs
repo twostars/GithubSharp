@@ -9,7 +9,7 @@ namespace GithubSharp.Core.API
         public Commits(ICacheProvider cacheProvider, ILogProvider logProvider) :
             base(cacheProvider, logProvider) { }
 
-        public Commit[] CommitsForBranch(string username, string repositoryName, string branchName)
+        public CommitRoot[] CommitsForBranch(string username, string repositoryName, string branchName)
         {
             LogProvider.LogMessage(string.Format("Commits.CommitsForBranch - Username : '{0}', RepositoryName : '{1}', Branch : '{2}'",
                 username,
@@ -17,19 +17,19 @@ namespace GithubSharp.Core.API
                 branchName));
 
             var url = string.Format("repos/{0}/{1}/commits?sha={2}", username, repositoryName, branchName);
-            var result = ConsumeJsonUrl<Commit[]>(url);
+            var result = ConsumeJsonUrl<CommitRoot[]>(url);
             return result;
         }
 
 
-        public IEnumerable<Commit> CommitsForPath(string username, string repositoryName, string branchName, string filePath)
+        public CommitRoot[] CommitsForPath(string username, string repositoryName, string branchName, string filePath)
         {
             LogProvider.LogMessage(string.Format("Commits.CommitsForFile - Username : '{0}', RepositoryName : '{1}', Branch : '{2}', Path : '{3}'",
                                                 username, repositoryName, branchName, filePath));
 
             var url = string.Format("repos/{0}/{1}/commits?sha={2}&path={3}", username, repositoryName, branchName, filePath);
-            var result = ConsumeJsonUrl<Models.Internal.CommitListContainer>(url);
-            return result != null ? result.Commits : null;
+            var result = ConsumeJsonUrl<CommitRoot[]>(url);
+            return result;
         }
 
         public SingleFileCommit CommitForSingleFile(string username, string repositoryName, string commitShaId)

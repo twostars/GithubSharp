@@ -7,7 +7,7 @@ namespace GithubSharp.Core.Models.Internal
     internal class CommitListContainer
     {
         [DataMember(Name = "commits")]
-        public IEnumerable<Commit> Commits { get; set; }
+        public IEnumerable<CommitRoot> Commits { get; set; }
     }
 
     [DataContract]
