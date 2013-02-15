@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using GithubSharp.Core.Base;
 using GithubSharp.Core.Models;
 using GithubSharp.Core.Services;
@@ -9,15 +8,13 @@ namespace GithubSharp.Core.API
     public class Repository : BaseApi
     {
         public Repository(ICacheProvider cacheProvider, ILogProvider logProvider)
-            : base(cacheProvider, logProvider)
-        {
-        }
+            : base(cacheProvider, logProvider) { }
 
-        public IEnumerable<Models.RepositoryFromSearch> Search(string search)
+        public IEnumerable<RepositoryFromSearch> Search(string search)
         {
             LogProvider.LogMessage(string.Format("Repository.Search - '{0}'", search));
             var url = string.Format("legacy/repos/search/{0}", search);
-            var result = ConsumeJsonUrl<Models.Internal.RepositoryCollection<Models.RepositoryFromSearch>>(url);
+            var result = ConsumeJsonUrl<Models.Internal.RepositoryCollection<RepositoryFromSearch>>(url);
             return result == null ? null : result.Repositories;
         }
 
@@ -29,32 +26,20 @@ namespace GithubSharp.Core.API
             return result;
         }
 
-        public IEnumerable<Models.Repository> List(string username)
+        public Models.Repository[] List(string username)
         {
             LogProvider.LogMessage(string.Format("Repository.List - Username : '{0}'", username));
-            var url = string.Format("{0}{1}", "repos/show/", username);
-            var result = ConsumeJsonUrl<Models.Internal.RepositoryCollection<Models.Repository>>(url);
-            return result == null ? null : result.Repositories;
+            var url = string.Format("users/{0}/repos", username);
+            var result = ConsumeJsonUrl<Models.Repository[]>(url);
+            return result;
         }
 
-        public IEnumerable<Models.Repository> Network(string repositoryName, string username)
-        {
-            LogProvider.LogMessage(string.Format("Repository.Network - RepositoryName : '{0}' , Username : '{1}' ", repositoryName, username));
-            var url = string.Format("repos/show/{1}/{0}/network", repositoryName, username);
-            var result = ConsumeJsonUrl<Models.Internal.RepositoryFromNetworkContainer>(url);
-            return result == null ? null : result.Network.ToArray();
-        }
-
-        public IEnumerable<Models.Language> LanguageBreakDown(string repositoryName, string username)
+        public Dictionary<string, int> LanguageBreakDown(string repositoryName, string username)
         {
             LogProvider.LogMessage(string.Format("Repository.LanguageBreakDown - RepositoryName : '{0}' , Username : '{1}' ", repositoryName, username));
-            var url = string.Format("repos/show/{1}/{0}/languages", repositoryName, username);
-            var result = ConsumeJsonUrl<Models.Internal.LanguagesCollection>(url);
-            return result == null
-                       ? null
-                       : result.Languages.ToList()
-                               .Select(p => new Models.Language { Name = p.Key, CalculatedBytes = p.Value })
-                               .ToArray();
+            var url = string.Format("repos/{0}/{1}/languages", username, repositoryName);
+            var result = ConsumeJsonUrl<Dictionary<string, int>>(url);
+            return result;
         }
 
         public Tag[] Tags(string repositoryName, string username)

@@ -36,7 +36,7 @@ namespace GithubSharp.Tests.CoreTests
         [Test]
         public void CanGetRepositoryTags()
         {
-            var tags = _repoApi.Tags("GithubSharp", "RhysC").ToArray();
+            var tags = _repoApi.Tags("GithubSharp", "RhysC");
             Assert.NotNull(tags);
             Assert.IsNotEmpty(tags);
             Assert.IsNotEmpty(tags.Where(t => t.Name == "v0.00").ToArray());//I have put a tag on this repo
@@ -45,10 +45,28 @@ namespace GithubSharp.Tests.CoreTests
         [Test]
         public void CanGetRepositoryBranches()
         {
-            var tags = _repoApi.Branches("GithubSharp", "RhysC").ToArray();
-            Assert.NotNull(tags);
-            Assert.IsNotEmpty(tags);
-            Assert.IsNotEmpty(tags.Where(t => t.Name == "PullRequestDemo").ToArray());
+            var branches = _repoApi.Branches("GithubSharp", "RhysC");
+            Assert.NotNull(branches);
+            Assert.IsNotEmpty(branches);
+            Assert.IsNotEmpty(branches.Where(t => t.Name == "PullRequestDemo").ToArray());
+        }
+
+        [Test]
+        public void CanListUsersRepositories()
+        {
+            var repos = _repoApi.List("RhysC").ToArray();
+            Assert.NotNull(repos);
+            Assert.IsNotEmpty(repos);
+            Assert.IsNotEmpty(repos.Where(t => t.Name == "GithubSharp").ToArray());
+        }
+
+        [Test]
+        public void CanGetRepositoriesLanguage()
+        {
+            var repos = _repoApi.LanguageBreakDown("GithubSharp", "RhysC").ToArray();
+            Assert.NotNull(repos);
+            Assert.IsNotEmpty(repos);
+            Assert.IsNotEmpty(repos.Where(t => t.Key == "C#").ToArray());
         }
     }
 }

@@ -159,21 +159,21 @@ namespace GithubSharp.MvcSample.MvcApplication.Controllers
 
         public ActionResult Languages(string RepositoryName, string Username)
         {
-            IEnumerable<Language> languages = BaseAPI.LanguageBreakDown(RepositoryName, Username);
+            var languages = BaseAPI.LanguageBreakDown(RepositoryName, Username);
 
             return View(GetBaseView(languages));
         }
 
         public ActionResult Tags(string RepositoryName, string Username)
         {
-            IEnumerable<TagOrBranchOLD> tags = BaseAPI.Tags(RepositoryName, Username);
+            var tags = BaseAPI.Tags(RepositoryName, Username);
 
             return View(GetBaseView(tags));
         }
 
         public ActionResult Branches(string RepositoryName, string Username)
         {
-            IEnumerable<TagOrBranchOLD> tags = BaseAPI.Branches(RepositoryName, Username);
+          var tags = BaseAPI.Branches(RepositoryName, Username);
 
             return View(GetBaseView(tags));
         }

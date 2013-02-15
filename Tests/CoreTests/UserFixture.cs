@@ -59,7 +59,7 @@ namespace GithubSharp.Tests.CoreTests
             Assert.IsNotEmpty(users.Where(u => u.UserName == "RhysC").ToArray());
             foreach (var user in users)
             {
-                Assert.IsNotNullOrEmpty(user.Name);
+                Assert.IsNotNullOrEmpty(user.UserName);
             }
         }
     }

@@ -18,14 +18,7 @@ namespace GithubSharp.Core.Models.Internal
         public TRepoType Repository { get; set; }
     }
 
-    [DataContract]
-    internal class RepositoryFromNetworkContainer
-    {
-        [DataMember(Name = "network")]
-        public IEnumerable<Repository> Network { get; set; }
-    }
-
-    [DataContract]
+   [DataContract]
     internal class RepositoryDelete
     {
         [DataMember(Name = "delete_token")]
