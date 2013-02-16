@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommitsFixture.cs" />
+    <Compile Include="IssuesFixture.cs" />
     <Compile Include="Legacy\GistModelTest.cs" />
     <Compile Include="Legacy\GithubRequestTest.cs" />
     <Compile Include="PullRequestFixture.cs" />

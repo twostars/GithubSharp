@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\AuthenticatedIssues.cs" />
     <Compile Include="API\AuthenticatedRepository.cs" />
     <Compile Include="API\AuthenticatedUser.cs" />
     <Compile Include="API\PullRequest.cs" />
@@ -94,6 +95,14 @@
     <Compile Include="Models\CommitRoot.cs" />
     <Compile Include="Models\Internal\Repository.cs" />
     <Compile Include="Models\Internal\User.cs" />
+    <Compile Include="Models\Issues\Assignee.cs" />
+    <Compile Include="Models\Issues\Creator.cs" />
+    <Compile Include="Models\Issues\IssueResponse.cs" />
+    <Compile Include="Models\Issues\IssueSearchResponse.cs" />
+    <Compile Include="Models\Issues\IssueSearchResult.cs" />
+    <Compile Include="Models\Issues\Milestone.cs" />
+    <Compile Include="Models\Issues\PullRequest.cs" />
+    <Compile Include="Models\Issues\User.cs" />
     <Compile Include="Models\Network.cs" />
     <Compile Include="Models\Object.cs" />
     <Compile Include="Models\PullRequest.cs" />
@@ -138,6 +147,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Generated\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
