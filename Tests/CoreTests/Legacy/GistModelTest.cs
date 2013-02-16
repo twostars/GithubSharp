@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace GithubSharp.Tests.CoreTests
 {
-    [TestFixture]
+    [TestFixture][Ignore]
     public class GistModelTest
     {
         [Test]

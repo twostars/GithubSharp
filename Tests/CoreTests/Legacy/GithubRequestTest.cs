@@ -7,6 +7,7 @@ using GithubSharp.Core.Base;
 namespace GithubSharp.Tests.CoreTests
 {
     [TestFixture]
+    [Ignore]
     public class GithubRequestTest
     {
         [Test]

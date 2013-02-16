@@ -97,6 +97,7 @@
     <Compile Include="Models\Issues\CreateIssueRequest.cs" />
     <Compile Include="Models\Issues\Creator.cs" />
     <Compile Include="Models\Issues\IssueComment.cs" />
+    <Compile Include="Models\Issues\IssueCommentCreateRequest.cs" />
     <Compile Include="Models\Issues\IssueLabel.cs" />
     <Compile Include="Models\Issues\IssueResponse.cs" />
     <Compile Include="Models\Issues\IssueSearchResponse.cs" />

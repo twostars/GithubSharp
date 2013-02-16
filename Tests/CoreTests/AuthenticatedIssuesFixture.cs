@@ -42,7 +42,7 @@ namespace GithubSharp.Tests.CoreTests
             Assert.NotNull(issues);
         }
         [Test]
-        public void CanCreateAndDeleteIssues()
+        public void CanCreateAndCommentAndDeleteIssues()
         {
             var title = Guid.NewGuid().ToString();
             var body = Guid.NewGuid().ToString();
@@ -55,6 +55,10 @@ namespace GithubSharp.Tests.CoreTests
             Assert.True(issue.Labels.Any(l => l.Name == "Test1"));
             Assert.True(issue.Labels.Any(l => l.Name == "Test2"));
             Assert.AreEqual("RhysC", issue.Assignee.Login);
+
+            var comment = Guid.NewGuid().ToString();
+            var commentedIsssue = _issuesRepositoryApi.CommentOnIssue("githubsharp", "rhysc", issue.Number, comment);
+            Assert.AreEqual(comment, commentedIsssue.Body);
 
             var closedIssue = _issuesRepositoryApi.Close("githubsharp", "rhysc", issue.Number);
             Assert.NotNull(closedIssue);
