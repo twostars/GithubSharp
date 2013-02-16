@@ -1,6 +1,7 @@
-namespace GithubSharp.Plugins.CacheProviders.NullCacher
+namespace GithubSharp.Core.Services.Implementation
 {
-	public class NullCacher : Core.Services.ICacheProvider
+    //TODO - untested/legacy - is this even what i want?
+    public class NullCacher : ICacheProvider
 	{
 		public T Get<T> (string name) where T : class
 		{

@@ -10,7 +10,7 @@ namespace GithubSharp.Core.Base
         private readonly ICacheProvider _cacheProvider;
         private readonly ILogProvider _logProvider;
         private readonly IAuthenticationProvider _authenticationProvider;
-        
+
         internal RequestProxy(ICacheProvider cache, ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
         {
             _authenticationProvider = authenticationProvider;
@@ -19,7 +19,7 @@ namespace GithubSharp.Core.Base
         }
 
 
-        internal string UploadValuesAndGetString<TRequest>(string url, TRequest request)
+        internal string UploadValuesAndGetString<TRequest>(string url, TRequest request, string method = "POST")
         {
             try
             {
@@ -27,7 +27,7 @@ namespace GithubSharp.Core.Base
                 _authenticationProvider.AddHeaders(webClient.Headers);
                 webClient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
                 var mystr = JsonConvert.SerializeObject(request, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-                var result = webClient.UploadString(url, "POST", mystr);
+                var result = webClient.UploadString(url, method, mystr);
                 return result;
             }
             catch (Exception ex)

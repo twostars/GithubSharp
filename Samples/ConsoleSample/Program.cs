@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Configuration;
-using GithubSharp.Core.API;
-using GithubSharp.Plugins.LogProviders.SimpleLogProvider;
 using GithubSharp.Core.Services;
 
 namespace ConsoleSample
@@ -17,7 +14,7 @@ namespace ConsoleSample
         //    var username = ConfigurationManager.AppSettings["username"];
         //    var password = ConfigurationManager.AppSettings["password"];
 
-        //    var user = new AuthenticatedUser(new BasicCacher.BasicCacher(), new SimpleLogProvider(), new BasicAuthenticationProvider(username, password));
+        //    var user = new AuthenticatedUserRepository(new BasicCacher.BasicCacher(), new SimpleLogProvider(), new BasicAuthenticationProvider(username, password));
         //    var u = user.Get("rumpl");
         //    Console.WriteLine(u.Blog);
         //    u = user.Get("rumpl");
@@ -51,7 +48,7 @@ namespace ConsoleSample
         //    var pulls = pullApi.List("spdr870", "gitextensions");
         //    foreach (var pull in pulls)
         //    {
-        //        Console.WriteLine("Pull from {1}: {0}\r\nVotes: {2}\r\nBody: {3}\r\nGravatar ID: {4}", pull.Title, pull.User.Login, pull.Votes, pull.Body, pull.User.GravatarId);
+        //        Console.WriteLine("Pull from {1}: {0}\r\nVotes: {2}\r\nBody: {3}\r\nGravatar ID: {4}", pull.Title, pull.UserRepository.Login, pull.Votes, pull.Body, pull.UserRepository.GravatarId);
         //        Console.WriteLine("Created: {0} Updated: {1} Issue updated: {2}", pull.Created, pull.Updated, pull.IssueUpdated);
         //        Console.WriteLine("Base: Owner: {0} Name: {1} Ref: {2} Sha: {3}", pull.Base.Repository.Owner, pull.Base.Repository.Name, pull.Base.Ref, pull.Base.Sha);
         //        Console.WriteLine("Head: Owner: {0} Name: {1} Ref: {2} Sha: {3}", pull.Head.Repository.Owner, pull.Head.Repository.Name, pull.Head.Ref, pull.Head.Sha);
@@ -62,10 +59,10 @@ namespace ConsoleSample
         //    }
 
         //    var pull2 = pullApi.GetById("cocytus", "gitextensions", "1");
-        //    Console.WriteLine("Pull from {1}: {0}\r\nVotes: {2}\r\nBody: {3}\r\nGravatar ID: {4}", pull2.Title, pull2.User.Login, pull2.Votes, pull2.Body, pull2.User.GravatarId);
+        //    Console.WriteLine("Pull from {1}: {0}\r\nVotes: {2}\r\nBody: {3}\r\nGravatar ID: {4}", pull2.Title, pull2.UserRepository.Login, pull2.Votes, pull2.Body, pull2.UserRepository.GravatarId);
         //    foreach (var d in pull2.Discussion)
         //    {
-        //        Console.WriteLine("Discussion: From {0} At: {1} Type: {2}", d.User.Login, d.Created, d.Type);
+        //        Console.WriteLine("Discussion: From {0} At: {1} Type: {2}", d.UserRepository.Login, d.Created, d.Type);
         //        if (d.Type.ToLowerInvariant() == "commit")
         //        {
         //            Console.WriteLine("SHA/ID: {0} Body: {1}", d.Id, d.Body);

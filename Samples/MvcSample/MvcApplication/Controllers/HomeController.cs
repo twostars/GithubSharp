@@ -23,7 +23,7 @@ namespace GithubSharp.MvcSample.MvcApplication.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Login (string user, string Apitoken, string ReturnURL)
         {
-        	var userAPI = new Core.API.User (CacheProvider, LogProvider);
+        	var userAPI = new Core.API.UserRepository (CacheProvider, LogProvider);
         	userAPI.Authenticate (new Core.Models.GithubUser { Name = user, APIToken = Apitoken });
         	try
             {

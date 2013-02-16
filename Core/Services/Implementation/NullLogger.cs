@@ -1,8 +1,9 @@
 using System;
 
-namespace GithubSharp.Plugins.LogProviders.NullLogger
+namespace GithubSharp.Core.Services.Implementation
 {
-	public class NullLogger : GithubSharp.Core.Services.ILogProvider
+    //TODO - untested/legacy - is this even what i want?
+    public class NullLogger : ILogProvider
 	{
 		public NullLogger ()
 			:this(false)

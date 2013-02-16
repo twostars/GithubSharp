@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Linq;
 using GithubSharp.Core.API;
-using GithubSharp.Plugins.LogProviders.NullLogger;
+using GithubSharp.Core.Services.Implementation;
 using NUnit.Framework;
 
 namespace GithubSharp.Tests.CoreTests
@@ -12,7 +12,7 @@ namespace GithubSharp.Tests.CoreTests
         [Test]
         public void CanGetPullRequests()
         {
-            var pullrequestApi = new PullRequest(new BasicCacher.BasicCacher(), new NullLogger());
+            var pullrequestApi = new PullRequest(new BasicCacher(), new NullLogger());
             var pullrequest = pullrequestApi.List("rhysc", "GithubSharp");
             Assert.NotNull(pullrequest);
             Assert.IsNotEmpty(pullrequest.ToArray());
@@ -21,7 +21,7 @@ namespace GithubSharp.Tests.CoreTests
         [Test]
         public void CanGetOpenPullRequests()
         {
-            var pullrequestApi = new PullRequest(new BasicCacher.BasicCacher(), new NullLogger());
+            var pullrequestApi = new PullRequest(new BasicCacher(), new NullLogger());
             var openPullrequests = pullrequestApi.List("rhysc", "GithubSharp", "open");
             Assert.NotNull(openPullrequests);
             Assert.IsNotEmpty(openPullrequests.ToArray());
@@ -30,7 +30,7 @@ namespace GithubSharp.Tests.CoreTests
         [Test]
         public void CanGetClosedPullRequests()
         {
-            var pullrequestApi = new PullRequest(new BasicCacher.BasicCacher(), new NullLogger());
+            var pullrequestApi = new PullRequest(new BasicCacher(), new NullLogger());
             var closedPullrequest = pullrequestApi.List("rhysc", "GithubSharp", "closed");
             Assert.NotNull(closedPullrequest);
             Assert.IsNotEmpty(closedPullrequest.ToArray());
@@ -40,7 +40,7 @@ namespace GithubSharp.Tests.CoreTests
         [Test]
         public void CanGetPullRequestById()
         {
-            var pullrequestApi = new PullRequest(new BasicCacher.BasicCacher(), new NullLogger());
+            var pullrequestApi = new PullRequest(new BasicCacher(), new NullLogger());
             var pullrequest = pullrequestApi.GetById("rhysc", "GithubSharp", 1.ToString(CultureInfo.InvariantCulture));
             Assert.NotNull(pullrequest);
             Assert.AreEqual("RhysC", pullrequest.User.Login);

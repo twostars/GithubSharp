@@ -6,7 +6,7 @@ using GithubSharp.Core.Services;
 
 namespace GithubSharp.Core.API
 {
-    public class AuthenticatedRepository : Repository
+    public class AuthenticatedRepository : RepositoryRepository
     {
         public AuthenticatedRepository(ICacheProvider cacheProvider, ILogProvider logProvider, IAuthenticationProvider authenticationProvider) :
             base(cacheProvider, logProvider, authenticationProvider) { }

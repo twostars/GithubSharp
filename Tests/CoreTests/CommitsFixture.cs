@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GithubSharp.Core.API;
-using GithubSharp.Plugins.LogProviders.NullLogger;
+using GithubSharp.Core.Services.Implementation;
 using NUnit.Framework;
 
 namespace GithubSharp.Tests.CoreTests
@@ -16,7 +16,7 @@ namespace GithubSharp.Tests.CoreTests
         [SetUp]
         public void SetUp()
         {
-            _commitApi = new Commits(new BasicCacher.BasicCacher(), new NullLogger());
+            _commitApi = new Commits(new BasicCacher(), new NullLogger());
         }
 
         [Test]

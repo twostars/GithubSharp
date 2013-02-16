@@ -69,19 +69,19 @@
   <ItemGroup>
     <Compile Include="API\AuthenticatedIssuesRepository.cs" />
     <Compile Include="API\AuthenticatedRepository.cs" />
-    <Compile Include="API\AuthenticatedUser.cs" />
+    <Compile Include="API\AuthenticatedUserRepository.cs" />
     <Compile Include="API\PullRequest.cs" />
     <Compile Include="Models\Internal\JsonSimpleDictionary.cs" />
     <Compile Include="Models\Internal\Network.cs" />
     <Compile Include="Models\Internal\Object.cs" />
     <Compile Include="Base\BaseAPI.cs" />
-    <Compile Include="API\Repository.cs" />
+    <Compile Include="API\RepositoryRepository.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="API\Commits.cs" />
     <Compile Include="Base\RequestProxy.cs" />
     <Compile Include="API\IssuesRepository.cs" />
     <Compile Include="API\Network.cs" />
-    <Compile Include="API\User.cs" />
+    <Compile Include="API\UserRepository.cs" />
     <Compile Include="Models\CommitRoot.cs" />
     <Compile Include="Models\Internal\Repository.cs" />
     <Compile Include="Models\Issues\Assignee.cs" />
@@ -95,13 +95,22 @@
     <Compile Include="Models\Issues\IssueSearchResult.cs" />
     <Compile Include="Models\Issues\Milestone.cs" />
     <Compile Include="Models\Issues\PullRequest.cs" />
-    <Compile Include="Models\Issues\User.cs" />
     <Compile Include="Models\Network.cs" />
     <Compile Include="Models\Object.cs" />
+    <Compile Include="Models\PublicKey.cs" />
     <Compile Include="Models\PullRequest.cs" />
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Models\GithubUser.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Repositories\Owner.cs" />
+    <Compile Include="Models\Repositories\Repository.cs" />
+    <Compile Include="Models\Users\AuthenticatedUser.cs" />
+    <Compile Include="Models\Users\Follower.cs" />
+    <Compile Include="Models\Users\Plan.cs" />
+    <Compile Include="Models\Users\PublicKey.cs" />
+    <Compile Include="Models\Users\User.cs" />
+    <Compile Include="Models\Users\UserSearchResult.cs" />
+    <Compile Include="Models\Users\UserSearchResults.cs" />
+    <Compile Include="Models\Users\UserSummary.cs" />
     <Compile Include="Services\ICacheProvider.cs" />
     <Compile Include="Services\ILogProvider.cs" />
     <Compile Include="Services\IAuthProvider.cs" />
@@ -112,6 +121,12 @@
     <Compile Include="Models\ChangeStatus.cs" />
     <Compile Include="Base\Enums.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Services\Implementation\ApplicationCacher.cs" />
+    <Compile Include="Services\Implementation\BasicAuthenticationProvider.cs" />
+    <Compile Include="Services\Implementation\BasicCacher.cs" />
+    <Compile Include="Services\Implementation\NullCacher.cs" />
+    <Compile Include="Services\Implementation\NullLogger.cs" />
+    <Compile Include="Services\Implementation\WebCacher.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

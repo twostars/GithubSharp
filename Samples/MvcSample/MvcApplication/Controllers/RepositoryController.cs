@@ -1,18 +1,18 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
+using GithubSharp.Core.API;
 using GithubSharp.Core.Models;
 using GithubSharp.Core.Services;
 using GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels;
-using Repository = GithubSharp.Core.API.Repository;
 
 namespace GithubSharp.MvcSample.MvcApplication.Controllers
 {
-    public sealed class RepositoryController : BaseAPIController<Repository>
+    public sealed class RepositoryController : BaseAPIController<RepositoryRepository>
     {
         public RepositoryController(ICacheProvider Cache, ILogProvider Log)
             : base(Cache, Log)
         {
-            BaseAPI = new Repository(Cache, Log);
+            BaseAPI = new RepositoryRepository(Cache, Log);
         }
 
         public ActionResult Index()

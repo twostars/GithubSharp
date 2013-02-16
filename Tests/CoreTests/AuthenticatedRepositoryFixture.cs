@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using GithubSharp.Core.API;
 using GithubSharp.Core.Services;
-using GithubSharp.Plugins.LogProviders.NullLogger;
+using GithubSharp.Core.Services.Implementation;
 using NUnit.Framework;
 
 namespace GithubSharp.Tests.CoreTests
@@ -18,7 +18,7 @@ namespace GithubSharp.Tests.CoreTests
             var username = ConfigurationManager.AppSettings["username"];
             var password = ConfigurationManager.AppSettings["password"];
             privateRepository = ConfigurationManager.AppSettings["privaterepo"];
-            _repoApi = new AuthenticatedRepository(new BasicCacher.BasicCacher(), new NullLogger(), new BasicAuthenticationProvider(username, password));
+            _repoApi = new AuthenticatedRepository(new BasicCacher(), new NullLogger(), new BasicAuthenticationProvider(username, password));
         }
 
         [Test]

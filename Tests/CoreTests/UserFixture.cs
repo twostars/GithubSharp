@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using GithubSharp.Core.API;
-using GithubSharp.Plugins.LogProviders.NullLogger;
+using GithubSharp.Core.Services.Implementation;
 using NUnit.Framework;
 
 namespace GithubSharp.Tests.CoreTests
@@ -9,18 +9,18 @@ namespace GithubSharp.Tests.CoreTests
     [TestFixture]
     public class UserFixture
     {
-        private User _userApi;
+        private UserRepository _userRepositoryApi;
 
         [SetUp]
         public void Setup()
         {
-            _userApi = new User(new BasicCacher.BasicCacher(), new NullLogger());
+            _userRepositoryApi = new UserRepository(new BasicCacher(), new NullLogger());
         }
 
         [Test]
         public void UserCanBeRetrievedByName()
         {
-            var user = _userApi.Get("rhysc");
+            var user = _userRepositoryApi.Get("rhysc");
             Assert.NotNull(user);
             Assert.AreEqual("Rhys Campbell", user.Name);
             Assert.AreEqual("RhysC", user.Login);
@@ -30,7 +30,7 @@ namespace GithubSharp.Tests.CoreTests
         [Test]
         public void CanRetrieveFollower()
         {
-            var followers = _userApi.Followers("rhysc");
+            var followers = _userRepositoryApi.Followers("rhysc");
             Assert.NotNull(followers);
             Assert.IsNotEmpty(followers);//a sad day when this fails ;)
             foreach (var follower in followers)
@@ -42,7 +42,7 @@ namespace GithubSharp.Tests.CoreTests
         [Test]
         public void CanRetrieveUsersWatchedRepos()
         {
-            var watchedRepos = _userApi.WatchedRepositories("rhysc").ToArray();
+            var watchedRepos = _userRepositoryApi.WatchedRepositories("rhysc").ToArray();
             Assert.NotNull(watchedRepos);
             Assert.IsNotEmpty(watchedRepos);
             foreach (var repo in watchedRepos)
@@ -54,12 +54,12 @@ namespace GithubSharp.Tests.CoreTests
         [Test]
         public void CanSearchForUsers()
         {
-            var users = _userApi.Search("rhysc").ToArray();
+            var users = _userRepositoryApi.Search("rhysc").ToArray();
             Assert.NotNull(users);
-            Assert.IsNotEmpty(users.Where(u => u.UserName == "RhysC").ToArray());
+            Assert.IsNotEmpty(users.Where(u => u.Username == "RhysC").ToArray());
             foreach (var user in users)
             {
-                Assert.IsNotNullOrEmpty(user.UserName);
+                Assert.IsNotNullOrEmpty(user.Username);
             }
         }
     }

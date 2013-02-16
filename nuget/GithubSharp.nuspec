@@ -3,16 +3,15 @@
   <metadata>
     <id>GithubSharp</id>
     <version>0.0.5.1</version>
-    <authors>Erik Zaadi</authors>
+    <authors>Erik Zaadi, Rhys Campbell</authors>
     <description>
-        C# integration with Githubs v2 apis - Complete Module
+        C# integration with Githubs v3 apis
     </description>
-    <projectUrl>http://github.com/erikzaadi/GithubSharp</projectUrl>
-    <iconUrl>https://github.com/erikzaadi/GithubSharp/raw/master/Samples/MvcSample/MvcUI/images/githubsharp.png</iconUrl>
+    <projectUrl>http://github.com/rhysc/GithubSharp</projectUrl>
+    <iconUrl>https://github.com/rhysc/GithubSharp/raw/master/Samples/MvcSample/MvcUI/images/githubsharp.png</iconUrl>
     <tags>Github</tags>
     <dependencies>
-      <dependency id="GithubSharp.Core" version="0.0.5.1" />
-      <dependency id="GithubSharp.Plugins.All" version="0.0.5.1" />
+      <dependency id="GithubSharp.Core" version="0.0.0.0" />
     </dependencies>
   </metadata>
   <files/>

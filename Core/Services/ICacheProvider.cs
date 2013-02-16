@@ -3,6 +3,7 @@ using System;
 namespace GithubSharp.Core.Services
 {
 
+    //TODO - untested/legacy - is this even what i want?
     public interface ICacheProvider
     {
         T Get<T>(string name) where T : class;
@@ -15,6 +16,7 @@ namespace GithubSharp.Core.Services
         int DefaultDuractionInMinutes { get; }
     }
 
+    //TODO - untested/legacy - is this even what i want?
     public class CachedObject<T> where T : class
     {
         public T Cached { get; set; }

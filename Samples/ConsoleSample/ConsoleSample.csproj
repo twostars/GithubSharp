@@ -67,14 +67,6 @@
       <Project>{59C24364-8C00-46AD-9CE6-1D5630656DF9}</Project>
       <Name>Core %28Core\Core%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Plugins\CacheProviders\BasicCacher\BasicCacher.csproj">
-      <Project>{5EB1DF0E-EDBD-44EB-8A63-070F13A5D0EE}</Project>
-      <Name>BasicCacher</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Plugins\LogProviders\SimpleLogProvider\SimpleLogProvider.csproj">
-      <Project>{26AB1C43-34F7-446C-A514-EB0E38730631}</Project>
-      <Name>SimpleLogProvider</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace GithubSharp.Core.Base
 {
+    //TODO - refactor to remove duplications
     public abstract class BaseApi
     {
         private RequestProxy _requestProxy;
@@ -54,6 +55,23 @@ namespace GithubSharp.Core.Base
         {
             var url = GetFullUrl(requestPath);
             var result = RequestProxy.UploadValuesAndGetString(url, request);
+            if (result == null)
+                return null;
+            try
+            {
+                return JsonConvert.DeserializeObject<TResponse>(result);
+            }
+            catch (Exception error)
+            {
+                if (LogProvider.HandleAndReturnIfToThrowError(error))
+                    throw;
+                return null;
+            }
+        }
+        protected TResponse ConsumeJsonUrlAndDeleteData<TRequest, TResponse>(string requestPath, TRequest request) where TResponse : class
+        {
+            var url = GetFullUrl(requestPath);
+            var result = RequestProxy.UploadValuesAndGetString(url, request, "DELETE");
             if (result == null)
                 return null;
             try

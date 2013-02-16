@@ -1,14 +1,12 @@
-// JSON C# Class Generator
+﻿// JSON C# Class Generator
 // http://at-my-window.blogspot.com/?page=json-class-generator
 
 using Newtonsoft.Json;
 
-namespace GithubSharp.Core.Models.Issues
+namespace GithubSharp.Core.Models.Repositories
 {
-
-    public class User
+    public class Owner
     {
-
         [JsonProperty("avatar_url")]
         public string AvatarUrl { get; set; }
 

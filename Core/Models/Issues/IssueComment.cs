@@ -1,6 +1,7 @@
 // JSON C# Class Generator
 // http://at-my-window.blogspot.com/?page=json-class-generator
 
+using GithubSharp.Core.Models.Users;
 using Newtonsoft.Json;
 
 namespace GithubSharp.Core.Models.Issues
@@ -28,6 +29,6 @@ namespace GithubSharp.Core.Models.Issues
         public string Url { get; set; }
 
         [JsonProperty("user")]
-        public User User { get; set; }
+        public UserSummary User { get; set; }
     }
 }

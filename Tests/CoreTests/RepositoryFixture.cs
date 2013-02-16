@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using System.Linq;
 using GithubSharp.Core.API;
-using GithubSharp.Plugins.LogProviders.NullLogger;
+using GithubSharp.Core.Services.Implementation;
 using NUnit.Framework;
 
 namespace GithubSharp.Tests.CoreTests
@@ -9,12 +9,12 @@ namespace GithubSharp.Tests.CoreTests
     [TestFixture]
     public class RepositoryFixture
     {
-        private Repository _repoApi;
+        private RepositoryRepository _repoApi;
 
         [SetUp]
         public void SetUp()
         {
-            _repoApi = new Repository(new BasicCacher.BasicCacher(), new NullLogger());
+            _repoApi = new RepositoryRepository(new BasicCacher(), new NullLogger());
         }
 
         [Test]

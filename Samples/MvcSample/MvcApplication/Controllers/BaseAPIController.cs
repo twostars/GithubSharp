@@ -20,7 +20,7 @@ namespace GithubSharp.MvcSample.MvcApplication.Controllers
 
         protected virtual bool Authenticate()
         {
-            var userAPI = new Core.API.User(CacheProvider, LogProvider);
+            var userAPI = new Core.API.UserRepository(CacheProvider, LogProvider);
             userAPI.Authenticate(CurrentUser);
             try
             {

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Reflection;
 using System.Web;
+using GithubSharp.Core.Services.Implementation;
 
 namespace GithubSharp.MvcSample.MvcApplication
 {
@@ -38,7 +39,7 @@ namespace GithubSharp.MvcSample.MvcApplication
 		
 			DependencyResolver.SetResolver (new Munq.MVC3.MunqDependencyResolver ());
 			
-			Munq.MVC3.MunqDependencyResolver.Container.RegisterInstance<Core.Services.ICacheProvider> (new GithubSharp.Plugins.CacheProviders.WebCache.WebCacher ());
+			Munq.MVC3.MunqDependencyResolver.Container.RegisterInstance<Core.Services.ICacheProvider> (new WebCacher ());
 			
 			
 			Munq.MVC3.MunqDependencyResolver.Container.RegisterInstance<Core.Services.ILogProvider> (new GithubSharp.Plugins.LogProviders.SimpleLogProvider.SimpleLogProvider ());

@@ -1,6 +1,6 @@
 ﻿using GithubSharp.Core.API;
 using GithubSharp.Core.Models;
-using GithubSharp.Plugins.LogProviders.NullLogger;
+using GithubSharp.Core.Services.Implementation;
 using NUnit.Framework;
 
 namespace GithubSharp.Tests.CoreTests
@@ -13,7 +13,7 @@ namespace GithubSharp.Tests.CoreTests
         [SetUp]
         public void SetUp()
         {
-            _issueRepositoryApi = new IssuesRepository(new BasicCacher.BasicCacher(), new NullLogger());
+            _issueRepositoryApi = new IssuesRepository(new BasicCacher(), new NullLogger());
         }
 
         [Test]

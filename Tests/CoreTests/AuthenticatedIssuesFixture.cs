@@ -4,7 +4,7 @@ using System.Linq;
 using GithubSharp.Core.API;
 using GithubSharp.Core.Models.Issues;
 using GithubSharp.Core.Services;
-using GithubSharp.Plugins.LogProviders.NullLogger;
+using GithubSharp.Core.Services.Implementation;
 using NUnit.Framework;
 
 namespace GithubSharp.Tests.CoreTests
@@ -23,7 +23,7 @@ namespace GithubSharp.Tests.CoreTests
             var password = ConfigurationManager.AppSettings["password"];
             _privateRepository = ConfigurationManager.AppSettings["privaterepo"];
             _privateOrg = ConfigurationManager.AppSettings["privateorg"];
-            _issuesRepositoryApi = new AuthenticatedIssuesRepository(new BasicCacher.BasicCacher(), new ConsoleLogger(),
+            _issuesRepositoryApi = new AuthenticatedIssuesRepository(new BasicCacher(), new ConsoleLogger(),
                                                                      new BasicAuthenticationProvider(username, password));
         }
 

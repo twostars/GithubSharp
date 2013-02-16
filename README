@@ -9,7 +9,9 @@ http://json2csharp.com/  - to create models
 http://jsonformat.com/   - to see formatted JSON output
 
 Note this is take a divergence from the original GithubSharp.
-- Using json.net as it it is a more commonly used library (and service stack failed to deserilaze some json types)
+- Using json.net as it it is a more commonly used library (and service stack failed to deserialize some json types)
 - Splitting our the API calls that require Auth and those that do not.
 - Models and urls are being updated to the v3 sepc
-- basic integration tests are being added that call back onto this github repo       
+- basic integration tests are being added that call back onto this github repo   
+- removal of unnessecary and unused code
+- reconsidering plugins - the caches dont work as expected so should probably be dropped for tested ones. Logger doent follow standard logging signatures,     
