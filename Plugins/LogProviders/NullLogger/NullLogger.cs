@@ -31,5 +31,36 @@ namespace GithubSharp.Plugins.LogProviders.NullLogger
 			get;set;
 		}
 	}
+    public class ConsoleLogger : GithubSharp.Core.Services.ILogProvider
+	{
+		public ConsoleLogger ()
+			:this(false)
+		{
+		}
+
+        public ConsoleLogger(bool Debug)
+		{
+			DebugMode = Debug;
+		}
+
+		public void LogMessage (string Message, params object[] Arguments)
+		{
+            Console.WriteLine(Message);
+		}
+
+		public void LogWarning (string Message, params object[] Arguments)
+		{
+            Console.WriteLine(Message);
+		}
+
+		public bool HandleAndReturnIfToThrowError (Exception error)
+		{
+			return DebugMode;
+		}
+
+		public bool DebugMode {
+			get;set;
+		}
+	}
 }
 

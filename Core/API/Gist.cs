@@ -6,14 +6,8 @@ namespace GithubSharp.Core.API
 {
     public class Gist : GithubApiBase
     {
-        public Gist(
-            ILogProvider logProvider,
-            ICacheProvider cacheProvider,
-            IAuthProvider authProvider)
-            : base(
-                logProvider,
-                cacheProvider,
-                authProvider) { }
+        public Gist(ILogProvider logProvider, ICacheProvider cacheProvider, IAuthProvider authProvider)
+            : base(logProvider, cacheProvider, authProvider) { }
 
         public IEnumerable<Models.Gist> List(string username)
         {

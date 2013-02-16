@@ -10,6 +10,10 @@ namespace GithubSharp.Core.API
         public Repository(ICacheProvider cacheProvider, ILogProvider logProvider)
             : base(cacheProvider, logProvider) { }
 
+        protected Repository(ICacheProvider cacheProvider, ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
+            : base(cacheProvider, logProvider, authenticationProvider) { }
+
+
         public IEnumerable<RepositoryFromSearch> Search(string search)
         {
             LogProvider.LogMessage(string.Format("Repository.Search - '{0}'", search));

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using GithubSharp.Core.API;
 using GithubSharp.Plugins.LogProviders.SimpleLogProvider;
 using GithubSharp.Core.Services;
@@ -11,13 +12,15 @@ namespace ConsoleSample
         {
             //TestPullRequest ();
 
-            var user = new AuthenticatedUser(new BasicCacher.BasicCacher(), new SimpleLogProvider());
+            var username = ConfigurationManager.AppSettings["username"];
+            var password = ConfigurationManager.AppSettings["password"];
+
+            var user = new AuthenticatedUser(new BasicCacher.BasicCacher(), new SimpleLogProvider(), new BasicAuthenticationProvider(username, password));
             var u = user.Get("rumpl");
             Console.WriteLine(u.Blog);
             u = user.Get("rumpl");
             Console.WriteLine(u.Blog);
 
-            user.Authenticate(new GithubSharp.Core.Models.GithubUser { Name = "erikzaadi", APIToken = "XXXXXXXXXXXXXXXXXXXXXXXXXXXX" });
             try
             {
                 var privateuser = user.Get();
@@ -30,7 +33,7 @@ namespace ConsoleSample
             }
 
 
-            var issuesAPI = new Issues(new BasicCacher.BasicCacher(), new SimpleLogProvider());
+            var issuesAPI = new IssuesRepository(new BasicCacher.BasicCacher(), new SimpleLogProvider());
 
             var closedIssues = issuesAPI.List("GithubSharp", "erikzaadi", GithubSharp.Core.Models.IssueState.Closed);
             var openIssues = issuesAPI.List("GithubSharp", "erikzaadi", GithubSharp.Core.Models.IssueState.Open);

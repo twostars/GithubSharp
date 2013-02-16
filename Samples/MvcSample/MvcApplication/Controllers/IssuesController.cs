@@ -6,12 +6,12 @@ using GithubSharp.Core.Services;
 
 namespace GithubSharp.MvcSample.MvcApplication.Controllers
 {
-    public sealed class IssuesController : BaseAPIController<Issues>
+    public sealed class IssuesController : BaseAPIController<IssuesRepository>
     {
         public IssuesController(ICacheProvider Cache, ILogProvider Log)
             : base(Cache, Log)
         {
-            BaseAPI = new Issues(Cache, Log);
+            BaseAPI = new IssuesRepository(Cache, Log);
         }
 
         public ActionResult Search(string Id, string Username, string RepositoryName, string State)

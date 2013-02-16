@@ -35,3 +35,6 @@ _ReSharper*/
 *.nupkg
 test[\-]results
 TestResult.xml
+
+#sensitive app config which should have username and password for tests
+Tests/CoreTests/App.config

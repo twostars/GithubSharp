@@ -5,10 +5,8 @@ using Newtonsoft.Json;
 
 namespace GithubSharp.Core.Models.Issues
 {
-
     public class IssueLabel
     {
-
         [JsonProperty("url")]
         public string Url { get; set; }
 

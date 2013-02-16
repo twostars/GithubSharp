@@ -8,18 +8,18 @@ namespace GithubSharp.Tests.CoreTests
     [TestFixture]
     public class IssuesFixture
     {
-        private Issues _issueApi;
+        private IssuesRepository _issueRepositoryApi;
 
         [SetUp]
         public void SetUp()
         {
-            _issueApi = new Issues(new BasicCacher.BasicCacher(), new NullLogger());
+            _issueRepositoryApi = new IssuesRepository(new BasicCacher.BasicCacher(), new NullLogger());
         }
 
         [Test]
         public void CanListRepoIssues()
         {
-            var issues = _issueApi.List("GithubSharp", "rhysc", IssueState.Open);
+            var issues = _issueRepositoryApi.List("GithubSharp", "rhysc", IssueState.Open);
             Assert.IsNotNull(issues);
             Assert.IsNotEmpty(issues);
         }
@@ -27,14 +27,14 @@ namespace GithubSharp.Tests.CoreTests
         [Test]
         public void CanGetIssues()
         {
-            var issue = _issueApi.View("GithubSharp", "rhysc", 3);
+            var issue = _issueRepositoryApi.View("GithubSharp", "rhysc", 3);
             Assert.IsNotNull(issue);
         }
 
         [Test]
         public void CanSearchIssues()
         {
-            var issues = _issueApi.Search("GithubSharp", "rhysc", IssueState.Open, "Sample");
+            var issues = _issueRepositoryApi.Search("GithubSharp", "rhysc", IssueState.Open, "Sample");
             Assert.IsNotNull(issues);
             Assert.IsNotEmpty(issues);
         }
@@ -42,7 +42,7 @@ namespace GithubSharp.Tests.CoreTests
         [Test]
         public void CanListIssuesLabel()
         {
-            var labels = _issueApi.Labels("GithubSharp", "rhysc", 3);
+            var labels = _issueRepositoryApi.Labels("GithubSharp", "rhysc", 3);
             Assert.IsNotNull(labels);
             Assert.IsNotEmpty(labels);
             foreach (var issueLabel in labels)
@@ -56,7 +56,7 @@ namespace GithubSharp.Tests.CoreTests
         [Test]
         public void CanListIssuesComments()
         {
-            var comments = _issueApi.Comments("GithubSharp", "rhysc", 3);
+            var comments = _issueRepositoryApi.Comments("GithubSharp", "rhysc", 3);
             Assert.IsNotNull(comments);
             Assert.IsNotEmpty(comments);
             

@@ -67,11 +67,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\AuthenticatedIssues.cs" />
+    <Compile Include="API\AuthenticatedIssuesRepository.cs" />
     <Compile Include="API\AuthenticatedRepository.cs" />
     <Compile Include="API\AuthenticatedUser.cs" />
     <Compile Include="API\PullRequest.cs" />
-    <Compile Include="Base\IBaseApi.cs" />
     <Compile Include="Models\Internal\Commit.cs" />
     <Compile Include="Models\Internal\Issues.cs" />
     <Compile Include="Models\Internal\JsonSimpleDictionary.cs" />
@@ -81,14 +80,13 @@
     <Compile Include="Models\Issue.cs" />
     <Compile Include="Base\BaseAPI.cs" />
     <Compile Include="API\Gist.cs" />
-    <Compile Include="API\Object.cs" />
     <Compile Include="API\Repository.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="API\Commits.cs" />
-    <Compile Include="Base\Url.cs" />
+    <Compile Include="Base\RequestProxy.cs" />
     <Compile Include="Github.cs" />
     <Compile Include="GithubURLs.cs" />
-    <Compile Include="API\Issues.cs" />
+    <Compile Include="API\IssuesRepository.cs" />
     <Compile Include="API\Network.cs" />
     <Compile Include="API\User.cs" />
     <Compile Include="Base\JsonConverter.cs" />
@@ -96,6 +94,7 @@
     <Compile Include="Models\Internal\Repository.cs" />
     <Compile Include="Models\Internal\User.cs" />
     <Compile Include="Models\Issues\Assignee.cs" />
+    <Compile Include="Models\Issues\CreateIssueRequest.cs" />
     <Compile Include="Models\Issues\Creator.cs" />
     <Compile Include="Models\Issues\IssueComment.cs" />
     <Compile Include="Models\Issues\IssueLabel.cs" />

@@ -2,8 +2,7 @@ namespace GithubSharp.Core.Base
 {
     public class GithubApiBase
     {
-        public GithubApiBase(
-            Services.ILogProvider logProvider,
+        public GithubApiBase(Services.ILogProvider logProvider,
             Services.ICacheProvider cacheProvider,
             Services.IAuthProvider authProvider)
         {

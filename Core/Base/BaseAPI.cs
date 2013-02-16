@@ -1,50 +1,40 @@
 using System;
-using System.Runtime.Serialization;
 using GithubSharp.Core.Services;
-using System.Collections.Specialized;
 using Newtonsoft.Json;
 
 namespace GithubSharp.Core.Base
 {
-    public abstract class BaseApi : IBaseApi
+    public abstract class BaseApi
     {
-        private Url _url;
+        private RequestProxy _requestProxy;
 
         protected BaseApi(ICacheProvider cache, ILogProvider log)
         {
             CacheProvider = cache;
             LogProvider = log;
+            AuthenticationProvider = new NullAuthenticationProvider();
+        }
+
+        protected BaseApi(ICacheProvider cache, ILogProvider log, IAuthenticationProvider authenticationProvider)
+        {
+            CacheProvider = cache;
+            LogProvider = log;
+            AuthenticationProvider = authenticationProvider;
         }
 
         protected ICacheProvider CacheProvider { get; set; }
         protected ILogProvider LogProvider { get; set; }
-        private Models.GithubUser CurrentUser { get; set; }
+        protected IAuthenticationProvider AuthenticationProvider { get; set; }
 
-        private Url UrlConsumer
+        private RequestProxy RequestProxy
         {
-            get { return _url ?? (_url = new Url(CacheProvider, LogProvider)); }
-        }
-        protected string CurrentUsername { get { return HasUser ? CurrentUser.Name : string.Empty; } }
-        private bool HasUser { get { return CurrentUser != null && !string.IsNullOrEmpty(CurrentUser.Name) && !string.IsNullOrEmpty(CurrentUser.APIToken); } }
-
-        public void Authenticate(Models.GithubUser user)
-        {
-            if (user == null)
-                LogProvider.LogMessage("Authenticate => Null user");
-            else
-                LogProvider.LogMessage("Authenticate => Name : {0}, APIToken : {1}", user.Name, user.APIToken);
-
-            CurrentUser = user;
+            get { return _requestProxy ?? (_requestProxy = new RequestProxy(CacheProvider, LogProvider, AuthenticationProvider)); }
         }
 
-        public T ConsumeJsonUrlAndPostData<T>(string url) where T : class
+        protected T ConsumeJsonUrlAndPostData<T>(string requestPath) where T : class
         {
-            return ConsumeJsonUrlAndPostData<T>(url, new NameValueCollection());
-        }
-
-        public T ConsumeJsonUrlAndPostData<T>(string url, NameValueCollection formValues) where T : class
-        {
-            var result = ConsumeUrlToStringAndPostData(url, formValues);
+            var url = GetFullUrl(requestPath);
+            var result = RequestProxy.UploadValuesAndGetString(url);
             if (result == null)
                 return null;
             try
@@ -58,34 +48,34 @@ namespace GithubSharp.Core.Base
                 return null;
             }
         }
-        
-        private string GetAuthenticatedUrl(string urlToUseAuthentication)
+
+        protected TResponse ConsumeJsonUrlAndPostData<TRequest, TResponse>(string requestPath, TRequest request) where TResponse : class
         {
-            var url = string.Format("{0}{1}{2}",
-                urlToUseAuthentication.StartsWith("http") ? urlToUseAuthentication : UrlConsumer.GithubBaseURL,
-                urlToUseAuthentication.StartsWith("http") ? "" : urlToUseAuthentication,
-                UrlConsumer.GithubAuthenticationQueryString(CurrentUser));
-            return url;
+            var url = GetFullUrl(requestPath);
+            var result = RequestProxy.UploadValuesAndGetString(url, request);
+            if (result == null)
+                return null;
+            try
+            {
+                return JsonConvert.DeserializeObject<TResponse>(result);
+            }
+            catch (Exception error)
+            {
+                if (LogProvider.HandleAndReturnIfToThrowError(error))
+                    throw;
+                return null;
+            }
         }
 
-        protected string ConsumeUrlToString(string url)
+        private string GetFullUrl(string requestPath)
         {
-            var authenticationUrl = GetAuthenticatedUrl(url);
-
-            return UrlConsumer.GetStringFromURL(authenticationUrl);
+            return string.Format("{0}{1}", RequestProxy.GithubBaseUrl, requestPath);
         }
-        protected byte[] ConsumeUrlToBinary(string url)
-        {
-            var authenticationUrl = GetAuthenticatedUrl(url);
 
-            return UrlConsumer.GetBinaryFromURL(authenticationUrl);
-        }
-        
-        private string ConsumeUrlToStringAndPostData(string url, NameValueCollection formValues)
+        protected string ConsumeUrlToString(string requestPath)
         {
-            var authenticationUrl = GetAuthenticatedUrl(url);
-
-            return UrlConsumer.UploadValuesAndGetString(authenticationUrl, formValues);
+            var url = GetFullUrl(requestPath);
+            return RequestProxy.GetStringFromUrl(url);
         }
 
         protected T ConsumeJsonUrl<T>(string url) where T : class
@@ -104,15 +94,6 @@ namespace GithubSharp.Core.Base
                     throw;
                 return null;
             }
-        }
-        
-        protected void Authenticate()
-        {
-            //TODO - this is no longer correct
-            if (HasUser) return;
-            var error = new Exception("You need to provide a valid GithubUser with an api token (see http://github.com/blog/170-token-authentication)");
-            if (LogProvider.HandleAndReturnIfToThrowError(error))
-                throw error;
         }
     }
 }

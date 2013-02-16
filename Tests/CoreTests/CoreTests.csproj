@@ -35,8 +35,11 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\Libs\nunit\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticatedIssuesFixture.cs" />
+    <Compile Include="AuthenticatedRepositoryFixture.cs" />
     <Compile Include="CommitsFixture.cs" />
     <Compile Include="IssuesFixture.cs" />
     <Compile Include="Legacy\GistModelTest.cs" />
@@ -75,6 +78,9 @@
       <Project>{26AB1C43-34F7-446C-A514-EB0E38730631}</Project>
       <Name>SimpleLogProvider</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

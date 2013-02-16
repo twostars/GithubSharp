@@ -8,8 +8,10 @@ namespace GithubSharp.Core.API
     {
         public User(ICacheProvider cacheProvider, ILogProvider logProvider)
             : base(cacheProvider, logProvider)
-        {
-        }
+        { }
+        protected User(ICacheProvider cacheProvider, ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
+            : base(cacheProvider, logProvider, authenticationProvider)
+        { }
 
         /// <summary>
         /// Search for users

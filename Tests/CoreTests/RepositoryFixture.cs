@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Configuration;
+using System.Linq;
 using GithubSharp.Core.API;
 using GithubSharp.Plugins.LogProviders.NullLogger;
 using NUnit.Framework;
@@ -22,6 +23,12 @@ namespace GithubSharp.Tests.CoreTests
             var repos = _repoApi.Get("rhysc", "GithubSharp");
             Assert.NotNull(repos);
             Assert.AreEqual("GithubSharp", repos.Name);
+        }
+        [Test]
+        public void CanNotGetPrivateRepository()
+        {
+            var repos = _repoApi.Get("rhysc", ConfigurationManager.AppSettings["privaterepo"]);
+            Assert.Null(repos);
         }
 
         [Test]

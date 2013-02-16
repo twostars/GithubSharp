@@ -2,6 +2,7 @@ using System;
 
 namespace GithubSharp.Plugins.AuthProviders.UserPasswordAuthProvider
 {
+    [Obsolete("stop making things harder than they need to be")]
 	public class UserPasswordAuthProvider : GithubSharp.Core.Services.IAuthProvider
 	{
 		public string Password {
