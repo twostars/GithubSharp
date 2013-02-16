@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using GithubSharp.Core.API;
+﻿using GithubSharp.Core.API;
 using GithubSharp.Core.Models;
 using GithubSharp.Plugins.LogProviders.NullLogger;
 using NUnit.Framework;
@@ -46,10 +42,24 @@ namespace GithubSharp.Tests.CoreTests
         [Test]
         public void CanListIssuesLabel()
         {
-            //Todo - model is still v2
             var labels = _issueApi.Labels("GithubSharp", "rhysc", 3);
             Assert.IsNotNull(labels);
             Assert.IsNotEmpty(labels);
+            foreach (var issueLabel in labels)
+            {
+                Assert.IsNotNullOrEmpty(issueLabel.Color);
+                Assert.IsNotNullOrEmpty(issueLabel.Url);
+                Assert.IsNotNullOrEmpty(issueLabel.Name);
+            }
+        }
+
+        [Test]
+        public void CanListIssuesComments()
+        {
+            var comments = _issueApi.Comments("GithubSharp", "rhysc", 3);
+            Assert.IsNotNull(comments);
+            Assert.IsNotEmpty(comments);
+            
         }
     }
 }

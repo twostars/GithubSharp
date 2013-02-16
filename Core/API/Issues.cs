@@ -49,26 +49,21 @@ namespace GithubSharp.Core.API
         }
 
 
-        public string[] Labels(string repository, string username,int id)
+        public IssueLabel[] Labels(string repository, string username, int id)
         {
             LogProvider.LogMessage(string.Format("Issues.Labels - Labels : repository '{0}', Username : '{1}', IssueId : '{2}'",
                                                  repository, username, id));
-
             var url = string.Format("repos/{0}/{1}/issues/{2}/labels", username, repository, id);
-           
-            var result = ConsumeJsonUrl<Models.Internal.LabelsCollection>(url);
-            return result != null ? result.Labels : null;
+            var result = ConsumeJsonUrl<IssueLabel[]>(url);
+            return result;
         }
 
-        public IEnumerable<Comment> Comments(string repository, string username, int id)
+        public IssueComment[] Comments(string repository, string username, int id)
         {
             LogProvider.LogMessage(string.Format("Issues.Comments - repository: '{0}', Username : '{1}', Id : '{2}'", repository, username, id));
-
-            //            var url = string.Format("issues/comments/{0}/{1}/{2}",
-            //                Username,
-            var url = string.Format("issues/comments/{0}/{1}", repository, id);
-            var result = ConsumeJsonUrl<Models.Internal.CommentsCollection>(url);
-            return result != null ? result.Comments : null;
+            var url = string.Format("repos/{0}/{1}/issues/{2}/comments", username, repository, id);
+            var result = ConsumeJsonUrl<IssueComment[]>(url);
+            return result;
         }
     }
 }
