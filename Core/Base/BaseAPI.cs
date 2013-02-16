@@ -7,6 +7,7 @@ namespace GithubSharp.Core.Base
     public abstract class BaseApi
     {
         private RequestProxy _requestProxy;
+        private const string GithubBaseUrl = "https://api.github.com/";
 
         protected BaseApi(ICacheProvider cache, ILogProvider log)
         {
@@ -67,11 +68,6 @@ namespace GithubSharp.Core.Base
             }
         }
 
-        private string GetFullUrl(string requestPath)
-        {
-            return string.Format("{0}{1}", RequestProxy.GithubBaseUrl, requestPath);
-        }
-
         protected string ConsumeUrlToString(string requestPath)
         {
             var url = GetFullUrl(requestPath);
@@ -94,6 +90,11 @@ namespace GithubSharp.Core.Base
                     throw;
                 return null;
             }
+        }
+
+        private static string GetFullUrl(string requestPath)
+        {
+            return string.Format("{0}{1}", GithubBaseUrl, requestPath);
         }
     }
 }

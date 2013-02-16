@@ -67,7 +67,8 @@ namespace GithubSharp.Tests.CoreTests
             Assert.AreEqual(title, closedIssue.Title);
             Assert.AreEqual("RhysC", closedIssue.Assignee.Login);
             Assert.AreEqual("closed", closedIssue.State);
-            Assert.True(DateTime.UtcNow.AddSeconds(-5) < closedIssue.ClosedAt && closedIssue.ClosedAt < DateTime.UtcNow.AddSeconds(1));
+            Console.WriteLine("closedat - {0}, Utc Now - {1}", closedIssue.ClosedAt, DateTime.UtcNow);
+            Assert.True(DateTime.UtcNow.AddMinutes(-2) < closedIssue.ClosedAt && closedIssue.ClosedAt < DateTime.UtcNow.AddMinutes(2));
         }
     }
 }

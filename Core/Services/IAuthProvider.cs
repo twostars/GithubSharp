@@ -45,51 +45,5 @@ namespace GithubSharp.Core.Services
             get { return _userName; }
         }
     }
-
-
-    [Obsolete]
-    public interface IAuthProvider
-    {
-        IAuthResponse Login();
-        IAuthResponse Logout();
-        IAuthPreRequestResponse PreRequestAuth(
-            IGithubRequest githubRequest,
-            System.Net.HttpWebRequest webRequest);
-        string PrepareUri(string uri);
-        string GetToken();
-        void RestoreFromToken(string token);
-        bool IsAuthenticated { get; set; }
-        string Username { get; set; }
-    }
-    [Obsolete]
-    public interface IAuthResponse
-    {
-        bool Success { get; set; }
-        string Message { get; set; }
-    }
-    [Obsolete]
-    public class AuthResponse : IAuthResponse
-    {
-        public bool Success { get; set; }
-        public string Message { get; set; }
-    }
-    [Obsolete]
-    public interface IAuthPreRequestResponse : IAuthResponse
-    {
-        System.Net.HttpWebRequest WebRequest
-        {
-            get;
-            set;
-        }
-    }
-    [Obsolete]
-    public class AuthPreRequestResponse : AuthResponse, IAuthPreRequestResponse
-    {
-        public System.Net.HttpWebRequest WebRequest
-        {
-            get;
-            set;
-        }
-    }
 }
 

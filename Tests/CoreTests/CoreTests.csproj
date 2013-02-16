@@ -42,25 +42,14 @@
     <Compile Include="AuthenticatedRepositoryFixture.cs" />
     <Compile Include="CommitsFixture.cs" />
     <Compile Include="IssuesFixture.cs" />
-    <Compile Include="Legacy\GistModelTest.cs" />
-    <Compile Include="Legacy\GithubRequestTest.cs" />
     <Compile Include="PullRequestFixture.cs" />
     <Compile Include="RepositoryFixture.cs" />
-    <Compile Include="Legacy\TestSettings.cs" />
     <Compile Include="UserFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Core.csproj">
       <Project>{59C24364-8C00-46AD-9CE6-1D5630656DF9}</Project>
       <Name>Core %28Core\Core%29</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Plugins\AuthProviders\NullAuthProvider\NullAuthProvider.csproj">
-      <Project>{3C916941-003B-480E-9981-2B9FEFFBF447}</Project>
-      <Name>NullAuthProvider</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Plugins\AuthProviders\UserPasswordAuthProvider\UserPasswordAuthProvider.csproj">
-      <Project>{61EFFFA9-0713-47CA-95D9-193E16BBA3B9}</Project>
-      <Name>UserPasswordAuthProvider</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Plugins\CacheProviders\BasicCacher\BasicCacher.csproj">
       <Project>{5EB1DF0E-EDBD-44EB-8A63-070F13A5D0EE}</Project>

@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 
 namespace GithubSharp.Core.Models.Internal
 {
+    //TODO - delet once all models are generated
     [Serializable]
     internal class JsonSimpleDictionary : ISerializable
     {

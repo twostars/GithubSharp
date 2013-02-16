@@ -16,20 +16,20 @@ namespace GithubSharp.Core.API
             get { return AuthenticationProvider.Username; }
         }
 
-        /// <summary>
-        /// Gets extended details (including private information) for a user
-        ///<para>Needs to bee authenticated (with a valid Github User)</para>
-        /// </summary>
-        ///<returns></returns>
-        public Models.UserAuthenticated Get()
-        {
-            //todo - not correctly implemented for v3
-            LogProvider.LogMessage(string.Format("User.Get (Authenticated) - '{0}'", CurrentUsername));
-            var url = string.Format("{0}{1}", "user/show/", CurrentUsername);
-            var result = ConsumeJsonUrl<Models.Internal.UserContainer<Models.UserAuthenticated>>(url);
+        ///// <summary>
+        ///// Gets extended details (including private information) for a user
+        /////<para>Needs to bee authenticated (with a valid Github User)</para>
+        ///// </summary>
+        /////<returns></returns>
+        //public Models.UserAuthenticated Get()
+        //{
+        //    //todo - not correctly implemented for v3
+        //    LogProvider.LogMessage(string.Format("User.Get (Authenticated) - '{0}'", CurrentUsername));
+        //    var url = string.Format("{0}{1}", "user/show/", CurrentUsername);
+        //    var result = ConsumeJsonUrl<Models.Internal.UserContainer<Models.UserAuthenticated>>(url);
 
-            return result == null ? null : result.User;
-        }
+        //    return result == null ? null : result.User;
+        //}
 
 
 

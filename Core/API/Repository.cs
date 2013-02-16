@@ -5,6 +5,7 @@ using GithubSharp.Core.Services;
 
 namespace GithubSharp.Core.API
 {
+    //TODO - clean up return types - most of these are hangovers from v2. regenerated the dtos
     public class Repository : BaseApi
     {
         public Repository(ICacheProvider cacheProvider, ILogProvider logProvider)

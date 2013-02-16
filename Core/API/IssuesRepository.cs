@@ -56,7 +56,7 @@ namespace GithubSharp.Core.API
         {
             LogProvider.LogMessage(string.Format("IssuesRepository.Labels - Labels : repository '{0}', Owner : '{1}', IssueId : '{2}'",
                                                  repository, owner, id));
-            var url = GetPathByDefault( repository,owner, "/{0}/labels", id);
+            var url = GetPathByDefault(repository, owner, "/{0}/labels", id);
             var result = ConsumeJsonUrl<IssueLabel[]>(url);
             return result;
         }
@@ -68,5 +68,11 @@ namespace GithubSharp.Core.API
             var result = ConsumeJsonUrl<IssueComment[]>(url);
             return result;
         }
+    }
+
+    public enum IssueState
+    {
+        Open,
+        Closed
     }
 }

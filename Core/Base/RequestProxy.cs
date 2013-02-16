@@ -7,25 +7,24 @@ namespace GithubSharp.Core.Base
 {
     internal class RequestProxy
     {
+        private readonly ICacheProvider _cacheProvider;
+        private readonly ILogProvider _logProvider;
+        private readonly IAuthenticationProvider _authenticationProvider;
+        
         internal RequestProxy(ICacheProvider cache, ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
         {
-            AuthenticationProvider = authenticationProvider;
-            CacheProvider = cache;
-            LogProvider = logProvider;
+            _authenticationProvider = authenticationProvider;
+            _cacheProvider = cache;
+            _logProvider = logProvider;
         }
 
-        internal ICacheProvider CacheProvider;
-        internal ILogProvider LogProvider;
-        internal IAuthenticationProvider AuthenticationProvider;
-
-        internal string GithubBaseUrl { get { return "https://api.github.com/"; } }
 
         internal string UploadValuesAndGetString<TRequest>(string url, TRequest request)
         {
             try
             {
                 var webClient = new WebClient();
-                AuthenticationProvider.AddHeaders(webClient.Headers);
+                _authenticationProvider.AddHeaders(webClient.Headers);
                 webClient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
                 var mystr = JsonConvert.SerializeObject(request, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
                 var result = webClient.UploadString(url, "POST", mystr);
@@ -33,7 +32,7 @@ namespace GithubSharp.Core.Base
             }
             catch (Exception ex)
             {
-                if (LogProvider.HandleAndReturnIfToThrowError(ex))
+                if (_logProvider.HandleAndReturnIfToThrowError(ex))
                     throw;
                 return null;
             }
@@ -43,14 +42,14 @@ namespace GithubSharp.Core.Base
             try
             {
                 var webClient = new WebClient();
-                AuthenticationProvider.AddHeaders(webClient.Headers);
+                _authenticationProvider.AddHeaders(webClient.Headers);
                 webClient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
                 var result = webClient.UploadString(url, "POST", "");
                 return result;
             }
             catch (Exception ex)
             {
-                if (LogProvider.HandleAndReturnIfToThrowError(ex))
+                if (_logProvider.HandleAndReturnIfToThrowError(ex))
                     throw;
                 return null;
             }
@@ -59,30 +58,30 @@ namespace GithubSharp.Core.Base
         internal string GetStringFromUrl(string url)
         {
             var cacheKey = string.Format("GetStringFromURL_{0}", url);
-            var cached = CacheProvider.Get<string>(cacheKey);
+            var cached = _cacheProvider.Get<string>(cacheKey);
             if (cached != null)
             {
-                LogProvider.LogMessage("Url.GetStringFromURL  :  Returning cached result");
+                _logProvider.LogMessage("Url.GetStringFromURL  :  Returning cached result");
                 return cached;
             }
 
-            LogProvider.LogMessage("Url.GetStringFromURL  :  Cached result unavailable, fetching url content");
+            _logProvider.LogMessage("Url.GetStringFromURL  :  Cached result unavailable, fetching url content");
 
             string result;
             try
             {
                 var webClient = new WebClient();
-                AuthenticationProvider.AddHeaders(webClient.Headers);
+                _authenticationProvider.AddHeaders(webClient.Headers);
                 result = webClient.DownloadString(url);
             }
             catch (Exception error)
             {
-                if (LogProvider.HandleAndReturnIfToThrowError(error))
+                if (_logProvider.HandleAndReturnIfToThrowError(error))
                     throw;
                 return null;
             }
 
-            CacheProvider.Set(result, cacheKey);
+            _cacheProvider.Set(result, cacheKey);
             return result;
         }
     }

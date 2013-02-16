@@ -14,41 +14,41 @@ namespace GithubSharp.MvcSample.MvcApplication.Controllers
             BaseAPI = new IssuesRepository(Cache, Log);
         }
 
-        public ActionResult Search(string Id, string Username, string RepositoryName, string State)
-        {
-            IssueState state = State == "open" ? IssueState.Open : IssueState.Closed;
-            IEnumerable<Issue> issues = BaseAPI.Search(RepositoryName, Username, state, Id);
+        //public ActionResult Search(string Id, string Username, string RepositoryName, string State)
+        //{
+        //    IssueState state = State == "open" ? IssueState.Open : IssueState.Closed;
+        //    IEnumerable<Issue> issues = BaseAPI.Search(RepositoryName, Username, state, Id);
 
-            return View("List", GetBaseView(issues));
-        }
+        //    return View("List", GetBaseView(issues));
+        //}
 
-        public ActionResult List(string Username, string RepositoryName, string State)
-        {
-            IssueState state = State == "open" ? IssueState.Open : IssueState.Closed;
-            IEnumerable<Issue> issues = BaseAPI.List(RepositoryName, Username, state);
+        //public ActionResult List(string Username, string RepositoryName, string State)
+        //{
+        //    IssueState state = State == "open" ? IssueState.Open : IssueState.Closed;
+        //    IEnumerable<Issue> issues = BaseAPI.List(RepositoryName, Username, state);
 
-            return View("List", GetBaseView(issues));
-        }
+        //    return View("List", GetBaseView(issues));
+        //}
 
-        public ActionResult View(string Username, string RepositoryName, int Id)
-        {
-            Issue issue = BaseAPI.View(RepositoryName, Username, Id);
+        //public ActionResult View(string Username, string RepositoryName, int Id)
+        //{
+        //    Issue issue = BaseAPI.View(RepositoryName, Username, Id);
 
-            return View(GetBaseView(issue));
-        }
+        //    return View(GetBaseView(issue));
+        //}
 
-        public ActionResult Labels(string Username, string RepositoryName)
-        {
-            string[] labels = BaseAPI.Labels(RepositoryName, Username);
+        //public ActionResult Labels(string Username, string RepositoryName)
+        //{
+        //    string[] labels = BaseAPI.Labels(RepositoryName, Username);
 
-            return View(GetBaseView(labels));
-        }
+        //    return View(GetBaseView(labels));
+        //}
 
-        public ActionResult Comments(string Username, string RepositoryName, int Id)
-        {
-            IEnumerable<Comment> comments = BaseAPI.Comments(RepositoryName, Username, Id);
+        //public ActionResult Comments(string Username, string RepositoryName, int Id)
+        //{
+        //    IEnumerable<Comment> comments = BaseAPI.Comments(RepositoryName, Username, Id);
 
-            return View(GetBaseView(comments));
-        }
+        //    return View(GetBaseView(comments));
+        //}
     }
 }

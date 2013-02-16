@@ -8,39 +8,41 @@ namespace ConsoleSample
 {
     class Program
     {
-        static void Main()
+        private static void Main()
         {
-            //TestPullRequest ();
-
-            var username = ConfigurationManager.AppSettings["username"];
-            var password = ConfigurationManager.AppSettings["password"];
-
-            var user = new AuthenticatedUser(new BasicCacher.BasicCacher(), new SimpleLogProvider(), new BasicAuthenticationProvider(username, password));
-            var u = user.Get("rumpl");
-            Console.WriteLine(u.Blog);
-            u = user.Get("rumpl");
-            Console.WriteLine(u.Blog);
-
-            try
-            {
-                var privateuser = user.Get();
-                if (privateuser == null)
-                    throw new Exception("Invalid user");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-
-            var issuesAPI = new IssuesRepository(new BasicCacher.BasicCacher(), new SimpleLogProvider());
-
-            var closedIssues = issuesAPI.List("GithubSharp", "erikzaadi", GithubSharp.Core.Models.IssueState.Closed);
-            var openIssues = issuesAPI.List("GithubSharp", "erikzaadi", GithubSharp.Core.Models.IssueState.Open);
-
-
-            Console.ReadKey();
         }
+
+        //    //TestPullRequest ();
+
+        //    var username = ConfigurationManager.AppSettings["username"];
+        //    var password = ConfigurationManager.AppSettings["password"];
+
+        //    var user = new AuthenticatedUser(new BasicCacher.BasicCacher(), new SimpleLogProvider(), new BasicAuthenticationProvider(username, password));
+        //    var u = user.Get("rumpl");
+        //    Console.WriteLine(u.Blog);
+        //    u = user.Get("rumpl");
+        //    Console.WriteLine(u.Blog);
+
+        //    try
+        //    {
+        //        var privateuser = user.Get();
+        //        if (privateuser == null)
+        //            throw new Exception("Invalid user");
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine(e.Message);
+        //    }
+
+
+        //    var issuesAPI = new IssuesRepository(new BasicCacher.BasicCacher(), new SimpleLogProvider());
+
+        //    var closedIssues = issuesAPI.List("GithubSharp", "erikzaadi", GithubSharp.Core.Models.IssueState.Closed);
+        //    var openIssues = issuesAPI.List("GithubSharp", "erikzaadi", GithubSharp.Core.Models.IssueState.Open);
+
+
+        //    Console.ReadKey();
+        //}
 
         //private static void TestPullRequest()
         //{

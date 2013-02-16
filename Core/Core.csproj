@@ -71,28 +71,19 @@
     <Compile Include="API\AuthenticatedRepository.cs" />
     <Compile Include="API\AuthenticatedUser.cs" />
     <Compile Include="API\PullRequest.cs" />
-    <Compile Include="Models\Internal\Commit.cs" />
-    <Compile Include="Models\Internal\Issues.cs" />
     <Compile Include="Models\Internal\JsonSimpleDictionary.cs" />
     <Compile Include="Models\Internal\Network.cs" />
     <Compile Include="Models\Internal\Object.cs" />
-    <Compile Include="Models\Internal\PullRequest.cs" />
-    <Compile Include="Models\Issue.cs" />
     <Compile Include="Base\BaseAPI.cs" />
-    <Compile Include="API\Gist.cs" />
     <Compile Include="API\Repository.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="API\Commits.cs" />
     <Compile Include="Base\RequestProxy.cs" />
-    <Compile Include="Github.cs" />
-    <Compile Include="GithubURLs.cs" />
     <Compile Include="API\IssuesRepository.cs" />
     <Compile Include="API\Network.cs" />
     <Compile Include="API\User.cs" />
-    <Compile Include="Base\JsonConverter.cs" />
     <Compile Include="Models\CommitRoot.cs" />
     <Compile Include="Models\Internal\Repository.cs" />
-    <Compile Include="Models\Internal\User.cs" />
     <Compile Include="Models\Issues\Assignee.cs" />
     <Compile Include="Models\Issues\CreateIssueRequest.cs" />
     <Compile Include="Models\Issues\Creator.cs" />
@@ -113,20 +104,12 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\ICacheProvider.cs" />
     <Compile Include="Services\ILogProvider.cs" />
-    <Compile Include="GithubRequest.cs" />
-    <Compile Include="GithubResponse.cs" />
     <Compile Include="Services\IAuthProvider.cs" />
-    <Compile Include="GithubAuthenticationException.cs" />
-    <Compile Include="GithubFailedResponse.cs" />
-    <Compile Include="GithubRequestWithReturnType.cs" />
     <Compile Include="Models\Gist.cs" />
     <Compile Include="Models\Fork.cs" />
     <Compile Include="Models\BasicUser.cs" />
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\ChangeStatus.cs" />
-    <Compile Include="GithubRequestWithInputAndReturnType.cs" />
-    <Compile Include="Base\GithubApiBase.cs" />
-    <Compile Include="GithubException.cs" />
     <Compile Include="Base\Enums.cs" />
     <Compile Include="Models\Comment.cs" />
   </ItemGroup>
@@ -150,8 +133,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Generated\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
