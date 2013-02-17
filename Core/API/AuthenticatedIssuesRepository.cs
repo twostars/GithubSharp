@@ -1,4 +1,3 @@
-using System.Collections.Specialized;
 using GithubSharp.Core.Models.Issues;
 using GithubSharp.Core.Services;
 
