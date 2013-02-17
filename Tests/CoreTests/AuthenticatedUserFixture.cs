@@ -10,7 +10,6 @@ namespace GithubSharp.Tests.CoreTests
     [TestFixture]
     public class AuthenticatedUserFixture
     {
-
         private AuthenticatedUserRepository _userRepositoryApi;
         private string _username;
 

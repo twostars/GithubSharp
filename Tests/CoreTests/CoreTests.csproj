@@ -43,6 +43,7 @@
     <Compile Include="AuthenticatedUserFixture.cs" />
     <Compile Include="CommitsFixture.cs" />
     <Compile Include="IssuesFixture.cs" />
+    <Compile Include="OAuthFixture.cs" />
     <Compile Include="PullRequestFixture.cs" />
     <Compile Include="RepositoryFixture.cs" />
     <Compile Include="UserFixture.cs" />

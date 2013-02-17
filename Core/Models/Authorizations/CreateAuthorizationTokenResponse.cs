@@ -1,7 +1,6 @@
 ﻿// JSON C# Class Generator
 // http://at-my-window.blogspot.com/?page=json-class-generator
 
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace GithubSharp.Core.Models.Authorizations
@@ -15,7 +14,7 @@ namespace GithubSharp.Core.Models.Authorizations
         public string Url { get; set; }
 
         [JsonProperty("scopes")]
-        public IList<string> Scopes { get; set; }
+        public string[] Scopes { get; set; }
 
         [JsonProperty("token")]
         public string Token { get; set; }
