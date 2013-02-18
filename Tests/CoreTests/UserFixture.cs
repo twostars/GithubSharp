@@ -14,7 +14,7 @@ namespace GithubSharp.Tests.CoreTests
         [SetUp]
         public void Setup()
         {
-            _userRepositoryApi = new UserRepository();
+            _userRepositoryApi = new UserRepository(RequestProxyProvider.Basic());
         }
 
         [Test]

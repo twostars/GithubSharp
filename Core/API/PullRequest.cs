@@ -1,9 +1,12 @@
-﻿using GithubSharp.Core.Models.PullRequests;
+﻿using GithubSharp.Core.Base;
+using GithubSharp.Core.Models.PullRequests;
 
 namespace GithubSharp.Core.API
 {
-    public class PullRequestsRepository : Base.BaseApi
+    public class PullRequestsRepository : BaseApi
     {
+        public PullRequestsRepository(IRequestProxy requestProxy) : base(requestProxy) { }
+
         public PullRequest[] List(string username, string repositoryName)
         {
             return List(username, repositoryName, null);

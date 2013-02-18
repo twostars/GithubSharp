@@ -1,22 +1,15 @@
-using GithubSharp.Core.Services;
-using GithubSharp.Core.Services.Implementation;
 using Newtonsoft.Json;
 
 namespace GithubSharp.Core.Base
 {
     public abstract class BaseApi
     {
-        private readonly RequestProxy _requestProxy;
+        private readonly IRequestProxy _requestProxy;
         private const string GithubBaseUrl = "https://api.github.com/";
 
-        protected BaseApi()
+        protected BaseApi(IRequestProxy requestProxy)
         {
-            _requestProxy = new RequestProxy(new ConsoleLogger(), new NullAuthenticationProvider());
-        }
-
-        protected BaseApi(ILogProvider log, IAuthenticationProvider authenticationProvider)
-        {
-            _requestProxy = new RequestProxy(log, authenticationProvider);
+            _requestProxy = requestProxy;
         }
 
         protected T ConsumeJsonUrlAndPostData<T>(string requestPath) where T : class

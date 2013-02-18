@@ -68,10 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\AuthenticatedIssuesRepository.cs" />
-    <Compile Include="API\AuthenticatedRepository.cs" />
     <Compile Include="API\AuthenticatedUserRepository.cs" />
     <Compile Include="API\AuthorizationsRepository.cs" />
     <Compile Include="API\PullRequest.cs" />
+    <Compile Include="Base\IRequestProxy.cs" />
     <Compile Include="Models\Authorizations\App.cs" />
     <Compile Include="Models\Authorizations\CreateAuthorizationTokenRequest.cs" />
     <Compile Include="Models\Authorizations\AuthorizationToken.cs" />

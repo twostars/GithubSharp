@@ -1,13 +1,11 @@
+using GithubSharp.Core.Base;
 using GithubSharp.Core.Models.Issues;
-using GithubSharp.Core.Services;
 
 namespace GithubSharp.Core.API
 {
     public class AuthenticatedIssuesRepository : IssuesRepository
     {
-        public AuthenticatedIssuesRepository(ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
-            : base(logProvider, authenticationProvider) { }
-
+        public AuthenticatedIssuesRepository(IRequestProxy requestProxy) : base(requestProxy) { }
 
         public IssueResponse[] Get()
         {

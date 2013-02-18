@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using GithubSharp.Core.Base;
 using GithubSharp.Core.Services;
 using GithubSharp.Core.Services.Implementation;
 
@@ -16,6 +17,18 @@ namespace GithubSharp.Tests.CoreTests
         {
             var token = ConfigurationManager.AppSettings["authtoken"];
             return new OAuthAuthenticationProvider(token);
+        }
+
+    }
+    public static class RequestProxyProvider
+    {
+        public static IRequestProxy Basic()
+        {
+            return new RequestProxy(new ConsoleLogger(), AuthenticationProvider.Basic());
+        }
+        public static IRequestProxy OAuth()
+        {
+            return new RequestProxy(new ConsoleLogger(), AuthenticationProvider.OAuth());
         }
 
     }

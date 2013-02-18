@@ -1,18 +1,13 @@
 using GithubSharp.Core.Base;
 using GithubSharp.Core.Models.Repositories;
 using GithubSharp.Core.Models.Users;
-using GithubSharp.Core.Services;
 using User = GithubSharp.Core.Models.Users.User;
 
 namespace GithubSharp.Core.API
 {
     public class UserRepository : BaseApi
     {
-        public UserRepository()
-        { }
-        protected UserRepository(ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
-            : base(logProvider, authenticationProvider)
-        { }
+        public UserRepository(IRequestProxy requestProxy) : base(requestProxy) { }
 
         public UserSearchResult[] Search(string search)
         {

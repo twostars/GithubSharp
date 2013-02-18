@@ -1,22 +1,21 @@
-using System;
 using System.Net;
 using GithubSharp.Core.Services;
 using Newtonsoft.Json;
 
 namespace GithubSharp.Core.Base
 {
-    internal class RequestProxy
+    public class RequestProxy : IRequestProxy
     {
         private readonly ILogProvider _logProvider;
         private readonly IAuthenticationProvider _authenticationProvider;
 
-        internal RequestProxy(ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
+        public RequestProxy(ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
         {
             _authenticationProvider = authenticationProvider;
             _logProvider = logProvider;
         }
 
-        internal string UploadValuesAndGetString<TRequest>(string url, TRequest request, string method = "POST")
+        public string UploadValuesAndGetString<TRequest>(string url, TRequest request, string method = "POST")
         {
             try
             {
@@ -29,18 +28,19 @@ namespace GithubSharp.Core.Base
                 var result = webClient.UploadString(url, method, mystr);
                 return result;
             }
-            catch (Exception ex)
+            catch (WebException ex)
             {
                 _logProvider.LogError(ex);
                 throw;
             }
         }
-        internal string UploadValuesAndGetString(string url)
+
+        public string UploadValuesAndGetString(string url)
         {
             return UploadValuesAndGetString(url, "");
         }
 
-        internal string GetStringFromUrl(string url)
+        public string GetStringFromUrl(string url)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace GithubSharp.Core.Base
                 var result = webClient.DownloadString(url);
                 return result;
             }
-            catch (Exception error)
+            catch (WebException error)
             {
                 _logProvider.LogError(error);
                 throw;

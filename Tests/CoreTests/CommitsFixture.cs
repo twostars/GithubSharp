@@ -12,7 +12,7 @@ namespace GithubSharp.Tests.CoreTests
         [SetUp]
         public void SetUp()
         {
-            _commitApi = new CommitsRepository();
+            _commitApi = new CommitsRepository(RequestProxyProvider.Basic());
         }
 
         [Test]

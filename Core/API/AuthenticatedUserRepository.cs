@@ -1,12 +1,11 @@
+using GithubSharp.Core.Base;
 using GithubSharp.Core.Models.Users;
-using GithubSharp.Core.Services;
 
 namespace GithubSharp.Core.API
 {
     public class AuthenticatedUserRepository : UserRepository
     {
-        public AuthenticatedUserRepository(ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
-            : base(logProvider, authenticationProvider) { }
+        public AuthenticatedUserRepository(IRequestProxy requestProxy) : base(requestProxy) { }
 
         public AuthenticatedUser Get()
         {

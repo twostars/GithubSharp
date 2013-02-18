@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using GithubSharp.Core.API;
+using GithubSharp.Core.Base;
 using GithubSharp.Core.Services;
 using GithubSharp.Core.Services.Implementation;
 using NUnit.Framework;
@@ -9,34 +10,32 @@ namespace GithubSharp.Tests.CoreTests
     [TestFixture]
     public class BasicAuthenticatedRepositoryFixture : AuthenticatedRepositoryFixture
     {
-        protected override IAuthenticationProvider GetAuthProvider()
+        protected override IRequestProxy GetProxyWithAuthProvider()
         {
-            return AuthenticationProvider.Basic();
+            return RequestProxyProvider.Basic();
         }
     }
     [TestFixture]
     public class OAuthAuthenticatedRepositoryFixture : AuthenticatedRepositoryFixture
     {
-        protected override IAuthenticationProvider GetAuthProvider()
+        protected override IRequestProxy GetProxyWithAuthProvider()
         {
-            return AuthenticationProvider.OAuth();
+            return RequestProxyProvider.OAuth();
         }
     }
 
     public abstract class AuthenticatedRepositoryFixture
     {
-        private AuthenticatedRepository _repoApi;
+        private RepositoryRepository _repoApi;
         private string _privateRepository;
 
         [SetUp]
         public void SetUp()
         {
-            var username = ConfigurationManager.AppSettings["username"];
-            var password = ConfigurationManager.AppSettings["password"];
             _privateRepository = ConfigurationManager.AppSettings["privaterepo"];
-            _repoApi = new AuthenticatedRepository(new NullLogger(), new BasicAuthenticationProvider(username, password));
+            _repoApi = new RepositoryRepository(GetProxyWithAuthProvider());
         }
-        protected abstract IAuthenticationProvider GetAuthProvider();
+        protected abstract IRequestProxy GetProxyWithAuthProvider();
 
         [Test]
         public void CanGetPrivateRepository()

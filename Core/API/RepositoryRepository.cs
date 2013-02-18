@@ -1,17 +1,12 @@
 using System.Collections.Generic;
 using GithubSharp.Core.Base;
 using GithubSharp.Core.Models.Repositories;
-using GithubSharp.Core.Services;
 
 namespace GithubSharp.Core.API
 {
-    //TODO - clean up return types - most of these are hangovers from v2. regenerated the dtos
     public class RepositoryRepository : BaseApi//Class name of the year goes to....
     {
-        public RepositoryRepository() { }
-
-        protected RepositoryRepository(ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
-            : base(logProvider, authenticationProvider) { }
+        public RepositoryRepository(IRequestProxy requestProxy) : base(requestProxy) { }
 
         public RepositorySearchResult[] Search(string search)
         {

@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Linq;
 using GithubSharp.Core.API;
+using GithubSharp.Core.Base;
 using GithubSharp.Core.Models.Issues;
 using GithubSharp.Core.Services;
 using GithubSharp.Core.Services.Implementation;
@@ -12,23 +13,23 @@ namespace GithubSharp.Tests.CoreTests
     [TestFixture]
     public class BasicAuthenticatedIssuesFixture : AuthenticatedIssuesFixture
     {
-        protected override IAuthenticationProvider GetAuthProvider()
+        protected override IRequestProxy GetProxyWithAuthProvider()
         {
-            return AuthenticationProvider.Basic();
+            return RequestProxyProvider.Basic();
         }
     }
     [TestFixture]
     public class OAuthAuthenticatedIssuesFixture : AuthenticatedIssuesFixture
     {
-        protected override IAuthenticationProvider GetAuthProvider()
+        protected override IRequestProxy GetProxyWithAuthProvider()
         {
-            return AuthenticationProvider.OAuth();
+            return RequestProxyProvider.OAuth();
         }
     }
 
     public abstract class AuthenticatedIssuesFixture
     {
-        protected abstract IAuthenticationProvider GetAuthProvider();
+        protected abstract IRequestProxy GetProxyWithAuthProvider();
 
         private AuthenticatedIssuesRepository _issuesRepositoryApi;
 
@@ -38,7 +39,7 @@ namespace GithubSharp.Tests.CoreTests
         public void SetUp()
         {
             _privateOrg = ConfigurationManager.AppSettings["privateorg"];
-            _issuesRepositoryApi = new AuthenticatedIssuesRepository(new ConsoleLogger(), GetAuthProvider());
+            _issuesRepositoryApi = new AuthenticatedIssuesRepository(GetProxyWithAuthProvider());
         }
 
        

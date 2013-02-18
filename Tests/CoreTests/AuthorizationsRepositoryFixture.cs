@@ -1,9 +1,8 @@
 ﻿using System.Configuration;
 using System.Linq;
 using GithubSharp.Core.API;
+using GithubSharp.Core.Base;
 using GithubSharp.Core.Models.Authorizations;
-using GithubSharp.Core.Services;
-using GithubSharp.Core.Services.Implementation;
 using NUnit.Framework;
 
 namespace GithubSharp.Tests.CoreTests
@@ -11,23 +10,22 @@ namespace GithubSharp.Tests.CoreTests
     [TestFixture]
     public class BasicAuthorizationsRepositoryFixture : AuthorizationsRepositoryFixture
     {
-        protected override IAuthenticationProvider GetAuthProvider()
+        protected override IRequestProxy GetAuthProvider()
         {
-            return AuthenticationProvider.Basic();
+            return RequestProxyProvider.Basic();
         }
     }
     [TestFixture]
     public class OAuthAuthorizationsRepositoryFixture : AuthorizationsRepositoryFixture
     {
-        protected override IAuthenticationProvider GetAuthProvider()
+        protected override IRequestProxy GetAuthProvider()
         {
-            return AuthenticationProvider.OAuth();
+            return RequestProxyProvider.OAuth();
         }
     }
 
     public abstract class AuthorizationsRepositoryFixture
     {
-        private string _username;
         private string _clientId;
         private string _clientsecret;
         private AuthorizationsRepository _authrepo;
@@ -37,14 +35,12 @@ namespace GithubSharp.Tests.CoreTests
         {
             _clientId = ConfigurationManager.AppSettings["clientid"];
             _clientsecret = ConfigurationManager.AppSettings["clientsecret"];
-            _username = ConfigurationManager.AppSettings["username"];
-            var password = ConfigurationManager.AppSettings["password"];
 
-            _authrepo = new AuthorizationsRepository(new ConsoleLogger(), new BasicAuthenticationProvider(_username, password));
+            _authrepo = new AuthorizationsRepository(GetAuthProvider());
 
         }
 
-        protected abstract IAuthenticationProvider GetAuthProvider();
+        protected abstract IRequestProxy GetAuthProvider();
 
         [Test]
         public void CanGetOAuthTokens()

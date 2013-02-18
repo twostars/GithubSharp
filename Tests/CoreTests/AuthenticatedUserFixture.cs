@@ -2,8 +2,7 @@
 using System.Configuration;
 using System.Linq;
 using GithubSharp.Core.API;
-using GithubSharp.Core.Services;
-using GithubSharp.Core.Services.Implementation;
+using GithubSharp.Core.Base;
 using NUnit.Framework;
 
 namespace GithubSharp.Tests.CoreTests
@@ -11,18 +10,18 @@ namespace GithubSharp.Tests.CoreTests
     [TestFixture]
     public class BasicAuthenticatedUserFixture : AuthenticatedUserFixture
     {
-        protected override IAuthenticationProvider GetAuthProvider()
+        protected override IRequestProxy GetAuthProvider()
         {
-            return AuthenticationProvider.Basic();
+            return RequestProxyProvider.Basic();
         }
     }
 
     [TestFixture]
     public class OAuthAuthenticatedUserFixture : AuthenticatedUserFixture
     {
-        protected override IAuthenticationProvider GetAuthProvider()
+        protected override IRequestProxy GetAuthProvider()
         {
-            return AuthenticationProvider.OAuth();
+            return RequestProxyProvider.OAuth();
         }
     }
     
@@ -37,7 +36,7 @@ namespace GithubSharp.Tests.CoreTests
         {
             _username = ConfigurationManager.AppSettings["username"];
 
-            _userRepositoryApi = new AuthenticatedUserRepository(new ConsoleLogger(), GetAuthProvider());
+            _userRepositoryApi = new AuthenticatedUserRepository(GetAuthProvider());
         }
 
         [Test]
@@ -96,7 +95,7 @@ namespace GithubSharp.Tests.CoreTests
 
         }
 
-        protected abstract IAuthenticationProvider GetAuthProvider();
+        protected abstract IRequestProxy GetAuthProvider();
 
     }
 }

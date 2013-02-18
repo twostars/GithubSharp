@@ -13,7 +13,7 @@ namespace GithubSharp.Tests.CoreTests
         [SetUp]
         public void SetUp()
         {
-            _pullrequestApi = new PullRequestsRepository();
+            _pullrequestApi = new PullRequestsRepository(RequestProxyProvider.Basic());
         }
 
         [Test]

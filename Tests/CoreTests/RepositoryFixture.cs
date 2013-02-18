@@ -13,7 +13,7 @@ namespace GithubSharp.Tests.CoreTests
         [SetUp]
         public void SetUp()
         {
-            _repoApi = new RepositoryRepository();
+            _repoApi = new RepositoryRepository(RequestProxyProvider.Basic());
         }
 
         [Test]

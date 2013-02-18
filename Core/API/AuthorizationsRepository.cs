@@ -1,13 +1,11 @@
+using GithubSharp.Core.Base;
 using GithubSharp.Core.Models.Authorizations;
-using GithubSharp.Core.Services;
 
 namespace GithubSharp.Core.API
 {
-    public class AuthorizationsRepository : Base.BaseApi
+    public class AuthorizationsRepository : BaseApi
     {
-        public AuthorizationsRepository(ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
-            : base(logProvider, authenticationProvider)
-        { }
+        public AuthorizationsRepository(IRequestProxy requestProxy) : base(requestProxy) { }
 
         /// <summary>
         /// Note I believe this can only be used with basic authtication provider.

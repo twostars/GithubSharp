@@ -1,15 +1,11 @@
+using GithubSharp.Core.Base;
 using GithubSharp.Core.Models.Issues;
-using GithubSharp.Core.Services;
 
 namespace GithubSharp.Core.API
 {
-    public class IssuesRepository : Base.BaseApi
+    public class IssuesRepository : BaseApi
     {
-        public IssuesRepository() { }
-
-        protected IssuesRepository(ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
-            : base(logProvider, authenticationProvider) { }
-
+        public IssuesRepository(IRequestProxy requestProxy) : base(requestProxy) { }
 
         protected string GetPathByDefault(string repository, string username, string format, params object[] formatParams)
         {
