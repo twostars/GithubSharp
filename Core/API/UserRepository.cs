@@ -2,6 +2,7 @@ using GithubSharp.Core.Base;
 using GithubSharp.Core.Models.Repositories;
 using GithubSharp.Core.Models.Users;
 using GithubSharp.Core.Services;
+using User = GithubSharp.Core.Models.Users.User;
 
 namespace GithubSharp.Core.API
 {

@@ -57,6 +57,14 @@ namespace GithubSharp.Tests.CoreTests
         }
 
         [Test]
+        public void CanGetRepositoryBranch()
+        {
+            var branch = _repoApi.Branches("GithubSharp", "RhysC", "master");
+            Assert.NotNull(branch);
+            Assert.AreEqual("master", branch.Name);
+        }
+
+        [Test]
         public void CanListUsersRepositories()
         {
             var repos = _repoApi.List("RhysC").ToArray();

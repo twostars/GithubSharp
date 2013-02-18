@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using GithubSharp.Core.API;
-using GithubSharp.Core.Services.Implementation;
 using NUnit.Framework;
 
 namespace GithubSharp.Tests.CoreTests
@@ -46,7 +42,7 @@ namespace GithubSharp.Tests.CoreTests
             foreach (var commit in commits)
             {
                 Assert.IsNotNullOrEmpty(commit.Sha);
-                Assert.NotNull(commit.Commit.Author.Email);//Could assert on all props...
+                Assert.NotNull(commit.CommitSummary.Author.Email);//Could assert on all props...
             }
         }
     }

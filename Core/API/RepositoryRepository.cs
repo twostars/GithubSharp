@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using GithubSharp.Core.Base;
-using GithubSharp.Core.Models;
+using GithubSharp.Core.Models.Repositories;
 using GithubSharp.Core.Services;
 
 namespace GithubSharp.Core.API
@@ -13,11 +13,11 @@ namespace GithubSharp.Core.API
         protected RepositoryRepository(ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
             : base(logProvider, authenticationProvider) { }
 
-        public IEnumerable<RepositoryFromSearch> Search(string search)
+        public RepositorySearchResult[] Search(string search)
         {
             var url = string.Format("legacy/repos/search/{0}", search);
-            var result = ConsumeJsonUrl<Models.Internal.RepositoryCollection<RepositoryFromSearch>>(url);
-            return result == null ? null : result.Repositories;
+            var result = ConsumeJsonUrl<RepositoriesSearchResult>(url);
+            return result == null ? new RepositorySearchResult[] { } : result.Repositories;
         }
 
         public Repository Get(string username, string repositoryName)
@@ -38,16 +38,22 @@ namespace GithubSharp.Core.API
             return ConsumeJsonUrl<Dictionary<string, int>>(url);
         }
 
-        public Tag[] Tags(string repositoryName, string username)
+        public TagOrBranch[] Tags(string repositoryName, string username)
         {
             var url = string.Format("repos/{0}/{1}/tags", username, repositoryName);
-            return ConsumeJsonUrl<Tag[]>(url);
+            return ConsumeJsonUrl<TagOrBranch[]>(url);
         }
 
-        public Branch[] Branches(string repositoryName, string username)
+        public TagOrBranch[] Branches(string repositoryName, string username)
         {
             var url = string.Format("repos/{0}/{1}/branches", username, repositoryName);
-            return ConsumeJsonUrl<Branch[]>(url);
+            return ConsumeJsonUrl<TagOrBranch[]>(url);
+        }
+
+        public BranchDetails Branches(string repositoryName, string owner, string branch)
+        {
+            var url = string.Format("repos/{0}/{1}/branches/{2}", owner, repositoryName, branch);
+            return ConsumeJsonUrl<BranchDetails>(url);
         }
     }
 }
