@@ -2,13 +2,32 @@
 using System.Configuration;
 using System.Linq;
 using GithubSharp.Core.API;
+using GithubSharp.Core.Services;
 using GithubSharp.Core.Services.Implementation;
 using NUnit.Framework;
 
 namespace GithubSharp.Tests.CoreTests
 {
     [TestFixture]
-    public class AuthenticatedUserFixture
+    public class BasicAuthenticatedUserFixture : AuthenticatedUserFixture
+    {
+        protected override IAuthenticationProvider GetAuthProvider()
+        {
+            return AuthenticationProvider.Basic();
+        }
+    }
+
+    [TestFixture]
+    public class OAuthAuthenticatedUserFixture : AuthenticatedUserFixture
+    {
+        protected override IAuthenticationProvider GetAuthProvider()
+        {
+            return AuthenticationProvider.OAuth();
+        }
+    }
+    
+    [TestFixture]
+    public abstract class AuthenticatedUserFixture
     {
         private AuthenticatedUserRepository _userRepositoryApi;
         private string _username;
@@ -17,9 +36,8 @@ namespace GithubSharp.Tests.CoreTests
         public void SetUp()
         {
             _username = ConfigurationManager.AppSettings["username"];
-            var password = ConfigurationManager.AppSettings["password"];
 
-            _userRepositoryApi = new AuthenticatedUserRepository(new BasicCacher(), new NullLogger(), new BasicAuthenticationProvider(_username, password));
+            _userRepositoryApi = new AuthenticatedUserRepository(new ConsoleLogger(), GetAuthProvider());
         }
 
         [Test]
@@ -77,5 +95,8 @@ namespace GithubSharp.Tests.CoreTests
             Assert.IsFalse(cleanEmails.Any(e => e == email2));
 
         }
+
+        protected abstract IAuthenticationProvider GetAuthProvider();
+
     }
 }

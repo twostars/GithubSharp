@@ -14,7 +14,7 @@ namespace GithubSharp.Tests.CoreTests
         [SetUp]
         public void Setup()
         {
-            _userRepositoryApi = new UserRepository(new BasicCacher(), new NullLogger());
+            _userRepositoryApi = new UserRepository();
         }
 
         [Test]

@@ -1,113 +1,54 @@
-using System;
 using GithubSharp.Core.Services;
+using GithubSharp.Core.Services.Implementation;
 using Newtonsoft.Json;
 
 namespace GithubSharp.Core.Base
 {
-    //TODO - refactor to remove duplications
     public abstract class BaseApi
     {
-        private RequestProxy _requestProxy;
+        private readonly RequestProxy _requestProxy;
         private const string GithubBaseUrl = "https://api.github.com/";
 
-        protected BaseApi(ICacheProvider cache, ILogProvider log)
+        protected BaseApi()
         {
-            CacheProvider = cache;
-            LogProvider = log;
-            AuthenticationProvider = new NullAuthenticationProvider();
+            _requestProxy = new RequestProxy(new ConsoleLogger(), new NullAuthenticationProvider());
         }
 
-        protected BaseApi(ICacheProvider cache, ILogProvider log, IAuthenticationProvider authenticationProvider)
+        protected BaseApi(ILogProvider log, IAuthenticationProvider authenticationProvider)
         {
-            CacheProvider = cache;
-            LogProvider = log;
-            AuthenticationProvider = authenticationProvider;
-        }
-
-        protected ICacheProvider CacheProvider { get; set; }
-        protected ILogProvider LogProvider { get; set; }
-        protected IAuthenticationProvider AuthenticationProvider { get; set; }
-
-        private RequestProxy RequestProxy
-        {
-            get { return _requestProxy ?? (_requestProxy = new RequestProxy(CacheProvider, LogProvider, AuthenticationProvider)); }
+            _requestProxy = new RequestProxy(log, authenticationProvider);
         }
 
         protected T ConsumeJsonUrlAndPostData<T>(string requestPath) where T : class
         {
             var url = GetFullUrl(requestPath);
-            var result = RequestProxy.UploadValuesAndGetString(url);
-            if (result == null)
-                return null;
-            try
-            {
-                return JsonConvert.DeserializeObject<T>(result);
-            }
-            catch (Exception error)
-            {
-                if (LogProvider.HandleAndReturnIfToThrowError(error))
-                    throw;
-                return null;
-            }
+            var result = _requestProxy.UploadValuesAndGetString(url);
+            return result == null ? null : JsonConvert.DeserializeObject<T>(result);
         }
 
         protected TResponse ConsumeJsonUrlAndPostData<TRequest, TResponse>(string requestPath, TRequest request) where TResponse : class
         {
             var url = GetFullUrl(requestPath);
-            var result = RequestProxy.UploadValuesAndGetString(url, request);
-            if (result == null)
-                return null;
-            try
-            {
-                return JsonConvert.DeserializeObject<TResponse>(result);
-            }
-            catch (Exception error)
-            {
-                if (LogProvider.HandleAndReturnIfToThrowError(error))
-                    throw;
-                return null;
-            }
+            var result = _requestProxy.UploadValuesAndGetString(url, request);
+            return result == null ? null : JsonConvert.DeserializeObject<TResponse>(result);
         }
         protected TResponse ConsumeJsonUrlAndDeleteData<TRequest, TResponse>(string requestPath, TRequest request) where TResponse : class
         {
             var url = GetFullUrl(requestPath);
-            var result = RequestProxy.UploadValuesAndGetString(url, request, "DELETE");
-            if (result == null)
-                return null;
-            try
-            {
-                return JsonConvert.DeserializeObject<TResponse>(result);
-            }
-            catch (Exception error)
-            {
-                if (LogProvider.HandleAndReturnIfToThrowError(error))
-                    throw;
-                return null;
-            }
+            var result = _requestProxy.UploadValuesAndGetString(url, request, "DELETE");
+            return result == null ? null : JsonConvert.DeserializeObject<TResponse>(result);
         }
 
         protected string ConsumeUrlToString(string requestPath)
         {
             var url = GetFullUrl(requestPath);
-            return RequestProxy.GetStringFromUrl(url);
+            return _requestProxy.GetStringFromUrl(url);
         }
 
         protected T ConsumeJsonUrl<T>(string url) where T : class
         {
             var result = ConsumeUrlToString(url);
-            if (result == null)
-                return null;
-            try
-            {
-                var jsonResult = JsonConvert.DeserializeObject<T>(result);
-                return jsonResult;
-            }
-            catch (Exception error)
-            {
-                if (LogProvider.HandleAndReturnIfToThrowError(error))
-                    throw;
-                return null;
-            }
+            return result == null ? null : JsonConvert.DeserializeObject<T>(result);
         }
 
         private static string GetFullUrl(string requestPath)

@@ -1,7 +1,6 @@
 ﻿using System.Configuration;
 using System.Linq;
 using GithubSharp.Core.API;
-using GithubSharp.Core.Services.Implementation;
 using NUnit.Framework;
 
 namespace GithubSharp.Tests.CoreTests
@@ -14,7 +13,7 @@ namespace GithubSharp.Tests.CoreTests
         [SetUp]
         public void SetUp()
         {
-            _repoApi = new RepositoryRepository(new BasicCacher(), new NullLogger());
+            _repoApi = new RepositoryRepository();
         }
 
         [Test]
@@ -27,8 +26,7 @@ namespace GithubSharp.Tests.CoreTests
         [Test]
         public void CanNotGetPrivateRepository()
         {
-            var repos = _repoApi.Get("rhysc", ConfigurationManager.AppSettings["privaterepo"]);
-            Assert.Null(repos);
+            Assert.Throws<System.Net.WebException>(() => _repoApi.Get("rhysc", ConfigurationManager.AppSettings["privaterepo"]));
         }
 
         [Test]

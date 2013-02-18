@@ -4,64 +4,54 @@ namespace GithubSharp.Core.Services.Implementation
 {
     //TODO - untested/legacy - is this even what i want?
     public class NullLogger : ILogProvider
-	{
-		public NullLogger ()
-			:this(false)
-		{
-		}
+    {
+        public NullLogger()
+            : this(false)
+        {
+        }
 
-		public NullLogger (bool Debug)
-		{
-			DebugMode = Debug;
-		}
+        public NullLogger(bool Debug)
+        {
+            DebugMode = Debug;
+        }
 
-		public void LogMessage (string Message, params object[] Arguments)
-		{
-		}
+        public void LogMessage(string message, params object[] arguments)
+        {
+        }
 
-		public void LogWarning (string Message, params object[] Arguments)
-		{
-		}
+        public void LogWarning(string message, params object[] arguments)
+        {
+        }
 
-		public bool HandleAndReturnIfToThrowError (Exception error)
-		{
-			return DebugMode;
-		}
+        public void LogError(Exception error)
+        { }
 
-		public bool DebugMode {
-			get;set;
-		}
-	}
-    public class ConsoleLogger : GithubSharp.Core.Services.ILogProvider
-	{
-		public ConsoleLogger ()
-			:this(false)
-		{
-		}
+        public bool DebugMode
+        {
+            get;
+            set;
+        }
+    }
 
-        public ConsoleLogger(bool Debug)
-		{
-			DebugMode = Debug;
-		}
 
-		public void LogMessage (string Message, params object[] Arguments)
-		{
-            Console.WriteLine(Message);
-		}
+    public class ConsoleLogger : ILogProvider
+    {
+        public bool DebugMode { get; set; }
 
-		public void LogWarning (string Message, params object[] Arguments)
-		{
-            Console.WriteLine(Message);
-		}
+        public void LogMessage(string message, params object[] arguments)
+        {
+            Console.WriteLine(message, arguments);
+        }
 
-		public bool HandleAndReturnIfToThrowError (Exception error)
-		{
-			return DebugMode;
-		}
+        public void LogWarning(string message, params object[] arguments)
+        {
+            Console.WriteLine(message, arguments);
+        }
 
-		public bool DebugMode {
-			get;set;
-		}
-	}
+        public void LogError(Exception error)
+        {
+            LogMessage("Exception: " + error.Message);
+        }
+    }
 }
 

@@ -77,24 +77,5 @@ namespace ConsoleSample
         //}
     }
 
-    class ConsoleLogger : ILogProvider
-    {
-        public bool DebugMode { get { return true; } set { } }
-
-        public void LogMessage(string Message, params object[] Arguments)
-        {
-            Console.WriteLine(Message, Arguments);
-        }
-
-        public void LogWarning(string Message, params object[] Arguments)
-        {
-            Console.WriteLine(Message, Arguments);
-        }
-
-        public bool HandleAndReturnIfToThrowError(Exception error)
-        {
-            LogMessage("Exception: " + error.Message);
-            return false;
-        }
-    }
+   
 }

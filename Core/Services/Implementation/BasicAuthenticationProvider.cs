@@ -26,4 +26,21 @@ namespace GithubSharp.Core.Services.Implementation
             get { return _userName; }
         }
     }
+    public class OAuthAuthenticationProvider : IAuthenticationProvider
+    {
+        private readonly string _token;
+
+        public OAuthAuthenticationProvider(string token)
+        {
+            _token = token;
+            Username = "Unknown - using token auth. Please set via a /users get operation";
+        }
+
+        public void AddHeaders(WebHeaderCollection headers)
+        {
+            headers.Add("Authorization", string.Format("token {0}", _token));
+        }
+
+        public string Username { get; set; }
+    }
 }

@@ -8,8 +8,8 @@ namespace GithubSharp.Core.API
 {
     public class AuthenticatedRepository : RepositoryRepository
     {
-        public AuthenticatedRepository(ICacheProvider cacheProvider, ILogProvider logProvider, IAuthenticationProvider authenticationProvider) :
-            base(cacheProvider, logProvider, authenticationProvider) { }
+        public AuthenticatedRepository(ILogProvider logProvider, IAuthenticationProvider authenticationProvider) :
+            base(logProvider, authenticationProvider) { }
 
         //public Models.Repository SetVisibility(string repositoryName, bool visibility)
         //{

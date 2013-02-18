@@ -10,23 +10,38 @@ using NUnit.Framework;
 namespace GithubSharp.Tests.CoreTests
 {
     [TestFixture]
-    public class AuthenticatedIssuesFixture
+    public class BasicAuthenticatedIssuesFixture : AuthenticatedIssuesFixture
     {
+        protected override IAuthenticationProvider GetAuthProvider()
+        {
+            return AuthenticationProvider.Basic();
+        }
+    }
+    [TestFixture]
+    public class OAuthAuthenticatedIssuesFixture : AuthenticatedIssuesFixture
+    {
+        protected override IAuthenticationProvider GetAuthProvider()
+        {
+            return AuthenticationProvider.OAuth();
+        }
+    }
+
+    public abstract class AuthenticatedIssuesFixture
+    {
+        protected abstract IAuthenticationProvider GetAuthProvider();
+
         private AuthenticatedIssuesRepository _issuesRepositoryApi;
-        private string _privateRepository;
+
         private string _privateOrg;
 
         [SetUp]
         public void SetUp()
         {
-            var username = ConfigurationManager.AppSettings["username"];
-            var password = ConfigurationManager.AppSettings["password"];
-            _privateRepository = ConfigurationManager.AppSettings["privaterepo"];
             _privateOrg = ConfigurationManager.AppSettings["privateorg"];
-            _issuesRepositoryApi = new AuthenticatedIssuesRepository(new BasicCacher(), new ConsoleLogger(),
-                                                                     new BasicAuthenticationProvider(username, password));
+            _issuesRepositoryApi = new AuthenticatedIssuesRepository(new ConsoleLogger(), GetAuthProvider());
         }
 
+       
         [Test]
         public void CanGetIssuesByAuthUsername()
         {

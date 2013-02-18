@@ -7,17 +7,14 @@ namespace GithubSharp.Core.Base
 {
     internal class RequestProxy
     {
-        private readonly ICacheProvider _cacheProvider;
         private readonly ILogProvider _logProvider;
         private readonly IAuthenticationProvider _authenticationProvider;
 
-        internal RequestProxy(ICacheProvider cache, ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
+        internal RequestProxy(ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
         {
             _authenticationProvider = authenticationProvider;
-            _cacheProvider = cache;
             _logProvider = logProvider;
         }
-
 
         internal string UploadValuesAndGetString<TRequest>(string url, TRequest request, string method = "POST")
         {
@@ -27,62 +24,37 @@ namespace GithubSharp.Core.Base
                 _authenticationProvider.AddHeaders(webClient.Headers);
                 webClient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
                 var mystr = JsonConvert.SerializeObject(request, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+
+                _logProvider.LogMessage("webClient.UploadString url = {0}| method = {1}| data = {2} ", url, method, mystr);
                 var result = webClient.UploadString(url, method, mystr);
                 return result;
             }
             catch (Exception ex)
             {
-                if (_logProvider.HandleAndReturnIfToThrowError(ex))
-                    throw;
-                return null;
+                _logProvider.LogError(ex);
+                throw;
             }
         }
         internal string UploadValuesAndGetString(string url)
         {
-            try
-            {
-                var webClient = new WebClient();
-                _authenticationProvider.AddHeaders(webClient.Headers);
-                webClient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                var result = webClient.UploadString(url, "POST", "");
-                return result;
-            }
-            catch (Exception ex)
-            {
-                if (_logProvider.HandleAndReturnIfToThrowError(ex))
-                    throw;
-                return null;
-            }
+            return UploadValuesAndGetString(url, "");
         }
 
         internal string GetStringFromUrl(string url)
         {
-            var cacheKey = string.Format("GetStringFromURL_{0}", url);
-            var cached = _cacheProvider.Get<string>(cacheKey);
-            if (cached != null)
-            {
-                _logProvider.LogMessage("Url.GetStringFromURL  :  Returning cached result");
-                return cached;
-            }
-
-            _logProvider.LogMessage("Url.GetStringFromURL  :  Cached result unavailable, fetching url content");
-
-            string result;
             try
             {
                 var webClient = new WebClient();
                 _authenticationProvider.AddHeaders(webClient.Headers);
-                result = webClient.DownloadString(url);
+                _logProvider.LogMessage("webClient.DownloadString url = {0}", url);
+                var result = webClient.DownloadString(url);
+                return result;
             }
             catch (Exception error)
             {
-                if (_logProvider.HandleAndReturnIfToThrowError(error))
-                    throw;
-                return null;
+                _logProvider.LogError(error);
+                throw;
             }
-
-            _cacheProvider.Set(result, cacheKey);
-            return result;
         }
     }
 }

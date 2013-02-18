@@ -5,45 +5,33 @@ namespace GithubSharp.Core.API
 {
     public class AuthenticatedUserRepository : UserRepository
     {
-        public AuthenticatedUserRepository(ICacheProvider cacheProvider, ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
-            : base(cacheProvider, logProvider, authenticationProvider) { }
-
-        protected string CurrentUsername
-        {
-            get { return AuthenticationProvider.Username; }
-        }
+        public AuthenticatedUserRepository(ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
+            : base(logProvider, authenticationProvider) { }
 
         public AuthenticatedUser Get()
         {
-            LogProvider.LogMessage(string.Format("UserRepository.Get (Authenticated) - '{0}'", CurrentUsername));
             return ConsumeJsonUrl<AuthenticatedUser>("user");
         }
 
         public PublicKey[] PublicKeys()
         {
-            LogProvider.LogMessage("UserRepository.PublicKeys");
             return ConsumeJsonUrl<PublicKey[]>("user/keys");
         }
 
         public string[] Emails()
         {
-            LogProvider.LogMessage("UserRepository.Emails");
             return ConsumeJsonUrl<string[]>("user/emails");
         }
 
         public string[] AddEmails(string[] emails)
         {
-            LogProvider.LogMessage("UserRepository.AddEmails {0}", string.Join(",", emails));
             return ConsumeJsonUrlAndPostData<string[], string[]>("user/emails", emails);
         }
 
         public void RemoveEmail(string[] emails)
         {
-            LogProvider.LogMessage("UserRepository.RemoveEmails {0}", string.Join(",", emails));
             ConsumeJsonUrlAndDeleteData<string[], string>("user/emails", emails);//return type not used. This is is a no content response
         }
-
-
 
         ///// <summary>
         ///// Updates a users details

@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace GithubSharp.Core.Models.Authorizations
 {
-    public class CreateAuthorizationTokenResponse
+    public class AuthorizationToken
     {
         [JsonProperty("id")]
         public int Id { get; set; }

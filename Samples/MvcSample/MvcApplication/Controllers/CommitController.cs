@@ -3,12 +3,12 @@ using GithubSharp.Core.Services;
 
 namespace GithubSharp.MvcSample.MvcApplication.Controllers
 {
-    public sealed class CommitController : BaseAPIController<Core.API.Commits>
+    public sealed class CommitController : BaseAPIController<Core.API.CommitsRepository>
     {
         public CommitController(ICacheProvider Cache, ILogProvider Log)
             : base(Cache, Log)
         {
-            BaseAPI = new Core.API.Commits(Cache, Log);
+            BaseAPI = new Core.API.CommitsRepository(Cache, Log);
         }
 
         public ActionResult CommitsForBranch(

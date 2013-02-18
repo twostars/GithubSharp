@@ -74,14 +74,14 @@
     <Compile Include="API\PullRequest.cs" />
     <Compile Include="Models\Authorizations\App.cs" />
     <Compile Include="Models\Authorizations\CreateAuthorizationTokenRequest.cs" />
-    <Compile Include="Models\Authorizations\CreateAuthorizationTokenResponse.cs" />
+    <Compile Include="Models\Authorizations\AuthorizationToken.cs" />
     <Compile Include="Models\Internal\JsonSimpleDictionary.cs" />
     <Compile Include="Models\Internal\Network.cs" />
     <Compile Include="Models\Internal\Object.cs" />
     <Compile Include="Base\BaseAPI.cs" />
     <Compile Include="API\RepositoryRepository.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="API\Commits.cs" />
+    <Compile Include="API\CommitsRepository.cs" />
     <Compile Include="Base\RequestProxy.cs" />
     <Compile Include="API\IssuesRepository.cs" />
     <Compile Include="API\Network.cs" />
@@ -115,7 +115,6 @@
     <Compile Include="Models\Users\UserSearchResult.cs" />
     <Compile Include="Models\Users\UserSearchResults.cs" />
     <Compile Include="Models\Users\UserSummary.cs" />
-    <Compile Include="Services\ICacheProvider.cs" />
     <Compile Include="Services\ILogProvider.cs" />
     <Compile Include="Services\IAuthProvider.cs" />
     <Compile Include="Models\Gist.cs" />
@@ -125,12 +124,8 @@
     <Compile Include="Models\ChangeStatus.cs" />
     <Compile Include="Base\Enums.cs" />
     <Compile Include="Models\Comment.cs" />
-    <Compile Include="Services\Implementation\ApplicationCacher.cs" />
     <Compile Include="Services\Implementation\BasicAuthenticationProvider.cs" />
-    <Compile Include="Services\Implementation\BasicCacher.cs" />
-    <Compile Include="Services\Implementation\NullCacher.cs" />
     <Compile Include="Services\Implementation\NullLogger.cs" />
-    <Compile Include="Services\Implementation\WebCacher.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

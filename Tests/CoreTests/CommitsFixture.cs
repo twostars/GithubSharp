@@ -11,12 +11,12 @@ namespace GithubSharp.Tests.CoreTests
     [TestFixture]
     public class CommitsFixture
     {
-        private Commits _commitApi;
+        private CommitsRepository _commitApi;
 
         [SetUp]
         public void SetUp()
         {
-            _commitApi = new Commits(new BasicCacher(), new NullLogger());
+            _commitApi = new CommitsRepository();
         }
 
         [Test]

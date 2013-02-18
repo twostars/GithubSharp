@@ -4,12 +4,12 @@ using GithubSharp.Core.Services;
 
 namespace GithubSharp.MvcSample.MvcApplication.Controllers
 {
-    public sealed class NetworkController : BaseAPIController<Network>
+    public sealed class NetworkController : BaseAPIController<NetworksRepository>
     {
         public NetworkController(ICacheProvider CacheProvider, ILogProvider LogProvider)
             : base(CacheProvider, LogProvider)
         {
-            BaseAPI = new Network(CacheProvider, LogProvider);
+            BaseAPI = new NetworksRepository(CacheProvider, LogProvider);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

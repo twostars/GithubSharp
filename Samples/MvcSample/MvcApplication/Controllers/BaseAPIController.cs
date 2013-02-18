@@ -28,7 +28,7 @@ namespace GithubSharp.MvcSample.MvcApplication.Controllers
             }
             catch (Exception error)
             {
-                if (LogProvider.HandleAndReturnIfToThrowError(error))
+                if (LogProvider.LogError(error))
                     throw;
                 return false;
             }
