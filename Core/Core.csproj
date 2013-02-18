@@ -71,6 +71,7 @@
     <Compile Include="API\AuthenticatedUserRepository.cs" />
     <Compile Include="API\AuthorizationsRepository.cs" />
     <Compile Include="API\PullRequest.cs" />
+    <Compile Include="API\RepositoryHooksRepository.cs" />
     <Compile Include="Base\IRequestProxy.cs" />
     <Compile Include="Models\Authorizations\App.cs" />
     <Compile Include="Models\Authorizations\CreateAuthorizationTokenRequest.cs" />
@@ -106,6 +107,9 @@
     <Compile Include="Models\Repositories\CommitDetails.cs" />
     <Compile Include="Models\Repositories\CommitSummary.cs" />
     <Compile Include="Models\Repositories\CommitSummaryAuthor.cs" />
+    <Compile Include="Models\Repositories\Hooks\Config.cs" />
+    <Compile Include="Models\Repositories\Hooks\CreateHookRequest.cs" />
+    <Compile Include="Models\Repositories\Hooks\Hook.cs" />
     <Compile Include="Models\Repositories\User.cs" />
     <Compile Include="Models\Repositories\BranchDetails.cs" />
     <Compile Include="Models\Repositories\CommitSummaryCommitter.cs" />

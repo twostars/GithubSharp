@@ -35,7 +35,7 @@ namespace GithubSharp.Tests.CoreTests
         {
             _clientId = ConfigurationManager.AppSettings["clientid"];
             _clientsecret = ConfigurationManager.AppSettings["clientsecret"];
-
+           
             _authrepo = new AuthorizationsRepository(GetAuthProvider());
 
         }
