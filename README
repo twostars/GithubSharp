@@ -15,3 +15,5 @@ Note this is take a divergence from the original GithubSharp.
 - basic integration tests are being added that call back onto this github repo   
 - removal of unnessecary and unused code
 - reconsidering plugins - the caches dont work as expected so should probably be dropped for tested ones. Logger doent follow standard logging signatures,     
+
+NUGET package is not updated.

@@ -1,1 +1,0 @@
-<%@ Page Language="C#" Inherits="GithubSharp.MvcSample.MvcApplication.Default" %>
