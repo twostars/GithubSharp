@@ -19,6 +19,10 @@ namespace GithubSharp.Tests.CoreTests
             return new OAuthAuthenticationProvider(token);
         }
 
+        public static IAuthenticationProvider None()
+        {
+            return new UnAuthenticatedAuthenticationProvider();
+        }
     }
     public static class RequestProxyProvider
     {
@@ -29,6 +33,10 @@ namespace GithubSharp.Tests.CoreTests
         public static IRequestProxy OAuth()
         {
             return new RequestProxy(new ConsoleLogger(), AuthenticationProvider.OAuth());
+        }
+        public static IRequestProxy UnAuthenticated()
+        {
+            return new RequestProxy(new ConsoleLogger(), AuthenticationProvider.None());
         }
 
     }

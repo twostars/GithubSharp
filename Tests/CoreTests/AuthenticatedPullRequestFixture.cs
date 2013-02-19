@@ -1,19 +1,37 @@
 ﻿using System.Globalization;
 using System.Linq;
 using GithubSharp.Core.API;
+using GithubSharp.Core.Base;
 using NUnit.Framework;
 
 namespace GithubSharp.Tests.CoreTests
 {
+
     [TestFixture]
-    public class PullRequestFixture
+    public class BasicAuthenticatedPullRequestFixture : AuthenticatedPullRequestFixture
+    {
+        protected override IRequestProxy GetProxyWithAuthProvider()
+        {
+            return RequestProxyProvider.Basic();
+        }
+    }
+    [TestFixture]
+    public class OAuthAuthenticatedPullRequestFixture : AuthenticatedPullRequestFixture
+    {
+        protected override IRequestProxy GetProxyWithAuthProvider()
+        {
+            return RequestProxyProvider.OAuth();
+        }
+    }
+
+    public abstract class AuthenticatedPullRequestFixture
     {
         private PullRequestsRepository _pullrequestApi;
 
         [SetUp]
         public void SetUp()
         {
-            _pullrequestApi = new PullRequestsRepository(RequestProxyProvider.Basic());
+            _pullrequestApi = new PullRequestsRepository(GetProxyWithAuthProvider());
         }
 
         [Test]
@@ -49,5 +67,7 @@ namespace GithubSharp.Tests.CoreTests
             Assert.AreEqual("RhysC", pullrequest.User.Login);
             Assert.AreEqual(1, pullrequest.Number);
         }
+
+        protected abstract IRequestProxy GetProxyWithAuthProvider();
     }
 }

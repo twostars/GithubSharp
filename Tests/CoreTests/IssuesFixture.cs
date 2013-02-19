@@ -11,7 +11,7 @@ namespace GithubSharp.Tests.CoreTests
         [SetUp]
         public void SetUp()
         {
-            _issueRepositoryApi = new IssuesRepository(RequestProxyProvider.Basic());
+            _issueRepositoryApi = new IssuesRepository(RequestProxyProvider.UnAuthenticated());
         }
 
         [Test]

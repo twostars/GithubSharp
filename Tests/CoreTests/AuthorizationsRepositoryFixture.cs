@@ -8,23 +8,7 @@ using NUnit.Framework;
 namespace GithubSharp.Tests.CoreTests
 {
     [TestFixture]
-    public class BasicAuthorizationsRepositoryFixture : AuthorizationsRepositoryFixture
-    {
-        protected override IRequestProxy GetAuthProvider()
-        {
-            return RequestProxyProvider.Basic();
-        }
-    }
-    [TestFixture]
-    public class OAuthAuthorizationsRepositoryFixture : AuthorizationsRepositoryFixture
-    {
-        protected override IRequestProxy GetAuthProvider()
-        {
-            return RequestProxyProvider.OAuth();
-        }
-    }
-
-    public abstract class AuthorizationsRepositoryFixture
+    public class AuthorizationsRepositoryFixture
     {
         private string _clientId;
         private string _clientsecret;
@@ -35,12 +19,9 @@ namespace GithubSharp.Tests.CoreTests
         {
             _clientId = ConfigurationManager.AppSettings["clientid"];
             _clientsecret = ConfigurationManager.AppSettings["clientsecret"];
-           
-            _authrepo = new AuthorizationsRepository(GetAuthProvider());
-
+            //We can only do this with Basic as this is setting up so we can use OAuth
+            _authrepo = new AuthorizationsRepository(RequestProxyProvider.Basic());
         }
-
-        protected abstract IRequestProxy GetAuthProvider();
 
         [Test]
         public void CanGetOAuthTokens()

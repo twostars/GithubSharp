@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using GithubSharp.Core.API;
-using GithubSharp.Core.Services.Implementation;
 using NUnit.Framework;
 
 namespace GithubSharp.Tests.CoreTests
@@ -14,7 +13,7 @@ namespace GithubSharp.Tests.CoreTests
         [SetUp]
         public void Setup()
         {
-            _userRepositoryApi = new UserRepository(RequestProxyProvider.Basic());
+            _userRepositoryApi = new UserRepository(RequestProxyProvider.UnAuthenticated());
         }
 
         [Test]

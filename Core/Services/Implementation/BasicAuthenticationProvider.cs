@@ -43,4 +43,13 @@ namespace GithubSharp.Core.Services.Implementation
 
         public string Username { get; set; }
     }
+
+    public class UnAuthenticatedAuthenticationProvider : IAuthenticationProvider
+    {
+        public void AddHeaders(WebHeaderCollection headers)
+        {
+        }
+
+        public string Username { get; private set; }
+    }
 }
