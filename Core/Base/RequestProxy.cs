@@ -8,6 +8,7 @@ namespace GithubSharp.Core.Base
     {
         private readonly ILogProvider _logProvider;
         private readonly IAuthenticationProvider _authenticationProvider;
+        private const string _userAgent = "GithubSharp";
 
         public RequestProxy(ILogProvider logProvider, IAuthenticationProvider authenticationProvider)
         {
@@ -15,18 +16,24 @@ namespace GithubSharp.Core.Base
             _logProvider = logProvider;
         }
 
+        private WebClient InitRequest()
+        {
+            var webClient = new WebClient();
+            webClient.Headers.Add("user-agent", _userAgent);
+            _authenticationProvider.AddHeaders(webClient.Headers);
+            return webClient;
+        }
+
         public string UploadValuesAndGetString<TRequest>(string url, TRequest request, string method = "POST")
         {
             try
             {
-                var webClient = new WebClient();
-                _authenticationProvider.AddHeaders(webClient.Headers);
+                var webClient = InitRequest();
                 webClient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
                 var mystr = JsonConvert.SerializeObject(request, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
 
                 _logProvider.LogMessage("webClient.UploadString url = {0}| method = {1}| data = {2} ", url, method, mystr);
-                var result = webClient.UploadString(url, method, mystr);
-                return result;
+                return webClient.UploadString(url, method, mystr);
             }
             catch (WebException ex)
             {
@@ -44,11 +51,9 @@ namespace GithubSharp.Core.Base
         {
             try
             {
-                var webClient = new WebClient();
-                _authenticationProvider.AddHeaders(webClient.Headers);
+                var webClient = InitRequest();
                 _logProvider.LogMessage("webClient.DownloadString url = {0}", url);
-                var result = webClient.DownloadString(url);
-                return result;
+                return webClient.DownloadString(url);
             }
             catch (WebException error)
             {
