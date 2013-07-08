@@ -21,6 +21,8 @@ namespace GithubSharp.Core.API
                                      state,
                                      search);
 
+            AppendPerPageLimit(ref url);
+
             var result = ConsumeJsonUrl<IssueSearchResponse>(url);
             return result != null ? result.Issues : new IssueSearchResult[] { };
         }
@@ -29,6 +31,7 @@ namespace GithubSharp.Core.API
         {
             var state = issueState == IssueState.Open ? "open" : "closed";
             var url = GetPathByDefault(repository, owner, "?state={0}", state);
+            AppendPerPageLimit(ref url);
             return ConsumeJsonUrl<IssueResponse[]>(url);
         }
 
@@ -47,6 +50,7 @@ namespace GithubSharp.Core.API
         public IssueComment[] Comments(string repository, string owner, int id)
         {
             var url = GetPathByDefault(repository, owner, "/{0}/comments", id);
+            AppendPerPageLimit(ref url);
             return ConsumeJsonUrl<IssueComment[]>(url);
         }
     }

@@ -11,6 +11,7 @@ namespace GithubSharp.Core.API
         public RepositorySearchResult[] Search(string search)
         {
             var url = string.Format("legacy/repos/search/{0}", search);
+            AppendPerPageLimit(ref url); 
             var result = ConsumeJsonUrl<RepositoriesSearchResult>(url);
             return result == null ? new RepositorySearchResult[] { } : result.Repositories;
         }
@@ -24,30 +25,35 @@ namespace GithubSharp.Core.API
         public Repository[] List(string username)
         {
             var url = string.Format("users/{0}/repos", username);
+            AppendPerPageLimit(ref url);
             return ConsumeJsonUrl<Repository[]>(url);
         }
 
         public Dictionary<string, int> LanguageBreakDown(string repositoryName, string username)
         {
             var url = string.Format("repos/{0}/{1}/languages", username, repositoryName);
+            AppendPerPageLimit(ref url);
             return ConsumeJsonUrl<Dictionary<string, int>>(url);
         }
 
         public TagOrBranch[] Tags(string repositoryName, string username)
         {
             var url = string.Format("repos/{0}/{1}/tags", username, repositoryName);
+            AppendPerPageLimit(ref url);
             return ConsumeJsonUrl<TagOrBranch[]>(url);
         }
 
         public TagOrBranch[] Branches(string repositoryName, string username)
         {
             var url = string.Format("repos/{0}/{1}/branches", username, repositoryName);
+            AppendPerPageLimit(ref url);
             return ConsumeJsonUrl<TagOrBranch[]>(url);
         }
 
         public BranchDetails Branches(string repositoryName, string owner, string branch)
         {
             var url = string.Format("repos/{0}/{1}/branches/{2}", owner, repositoryName, branch);
+            AppendPerPageLimit(ref url);
             return ConsumeJsonUrl<BranchDetails>(url);
         }
     }

@@ -10,8 +10,10 @@ namespace GithubSharp.Core.API
         public Hook[] List(string repositoryName, string owner)
         {
             var url = string.Format("{0}/{1}/{2}/hooks", "repos", owner, repositoryName);
+            AppendPerPageLimit(ref url); 
             return ConsumeJsonUrl<Hook[]>(url);
         }
+
         public Hook Get(string repositoryName, string owner, int id)
         {
             var url = string.Format("{0}/{1}/{2}/hooks/{3}", "repos", owner, repositoryName, id);

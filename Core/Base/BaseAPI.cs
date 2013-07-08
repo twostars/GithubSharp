@@ -6,10 +6,30 @@ namespace GithubSharp.Core.Base
     {
         private readonly IRequestProxy _requestProxy;
         private const string GithubBaseUrl = "https://api.github.com/";
+        private const int DefaultPerPageLimit = 30; // Github limits us to 30 entries per page by default
 
         protected BaseApi(IRequestProxy requestProxy)
         {
             _requestProxy = requestProxy;
+            PerPageLimit = DefaultPerPageLimit;
+        }
+
+        public int PerPageLimit
+        {
+            get;
+            set;
+        }
+
+        protected void AppendPerPageLimit(ref string requestUrl)
+        {
+            if (PerPageLimit == DefaultPerPageLimit)
+                return;
+
+            var separator = "?";
+            if (requestUrl.Contains(separator))
+                separator = "&";
+
+            requestUrl = string.Format("{0}{1}per_page={2}", requestUrl, separator, PerPageLimit);
         }
 
         protected T ConsumeJsonUrlAndPostData<T>(string requestPath) where T : class
@@ -25,6 +45,7 @@ namespace GithubSharp.Core.Base
             var result = _requestProxy.UploadValuesAndGetString(url, request);
             return result == null ? null : JsonConvert.DeserializeObject<TResponse>(result);
         }
+
         protected TResponse ConsumeJsonUrlAndDeleteData<TRequest, TResponse>(string requestPath, TRequest request) where TResponse : class
         {
             var url = GetFullUrl(requestPath);

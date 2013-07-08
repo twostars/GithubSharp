@@ -15,6 +15,7 @@ namespace GithubSharp.Core.API
         public PullRequest[] List(string username, string repositoryName, string state)
         {
             var url = string.Format("repos/{0}/{1}/pulls{2}", username, repositoryName, string.IsNullOrEmpty(state) ? "" : "?state=" + state);
+            AppendPerPageLimit(ref url); 
             return ConsumeJsonUrl<PullRequest[]>(url);
         }
 
