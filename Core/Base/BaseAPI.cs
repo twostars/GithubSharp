@@ -42,7 +42,14 @@ namespace GithubSharp.Core.Base
         protected TResponse ConsumeJsonUrlAndPostData<TRequest, TResponse>(string requestPath, TRequest request) where TResponse : class
         {
             var url = GetFullUrl(requestPath);
-            var result = _requestProxy.UploadValuesAndGetString(url, request);
+            var result = _requestProxy.UploadValuesAndGetString(url, request, "POST");
+            return result == null ? null : JsonConvert.DeserializeObject<TResponse>(result);
+        }
+
+        protected TResponse ConsumeJsonUrlAndPatchData<TRequest, TResponse>(string requestPath, TRequest request) where TResponse : class
+        {
+            var url = GetFullUrl(requestPath);
+            var result = _requestProxy.UploadValuesAndGetString(url, request, "PATCH");
             return result == null ? null : JsonConvert.DeserializeObject<TResponse>(result);
         }
 

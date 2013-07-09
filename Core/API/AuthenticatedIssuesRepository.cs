@@ -36,7 +36,7 @@ namespace GithubSharp.Core.API
         public IssueResponse Edit(string repositoryName, string owner, int id, IssueUpdateRequest request)
         {
             var url = string.Format("repos/{0}/{1}/issues/{2}", owner, repositoryName, id);
-            return ConsumeJsonUrlAndPostData<IssueUpdateRequest, IssueResponse>(url, request);
+            return ConsumeJsonUrlAndPatchData<IssueUpdateRequest, IssueResponse>(url, request);
         }
 
         public IssueComment CommentOnIssue(string repositoryName, string owner, int id, string comment)
