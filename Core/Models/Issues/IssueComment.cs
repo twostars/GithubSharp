@@ -19,6 +19,9 @@ namespace GithubSharp.Core.Models.Issues
         [JsonProperty("id")]
         public int Id { get; set; }
 
+        [JsonProperty("html_url")]
+        public string HtmlUrl { get; set; }
+
         [JsonProperty("issue_url")]
         public string IssueUrl { get; set; }
 
