@@ -25,7 +25,7 @@ namespace GithubSharp.Core.Models.Issues
         public string CommentsUrl { get; set; }
 
         [JsonProperty("created_at")]
-        public string CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("events_url")]
         public string EventsUrl { get; set; }
@@ -58,7 +58,7 @@ namespace GithubSharp.Core.Models.Issues
         public string Title { get; set; }
 
         [JsonProperty("updated_at")]
-        public string UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("url")]
         public string Url { get; set; }

@@ -1,6 +1,7 @@
 // JSON C# Class Generator
 // http://at-my-window.blogspot.com/?page=json-class-generator
 
+using System;
 using GithubSharp.Core.Models.Users;
 using Newtonsoft.Json;
 
@@ -14,7 +15,7 @@ namespace GithubSharp.Core.Models.Issues
         public string Body { get; set; }
 
         [JsonProperty("created_at")]
-        public string CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonProperty("id")]
         public int Id { get; set; }
@@ -26,7 +27,7 @@ namespace GithubSharp.Core.Models.Issues
         public string IssueUrl { get; set; }
 
         [JsonProperty("updated_at")]
-        public string UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("url")]
         public string Url { get; set; }
