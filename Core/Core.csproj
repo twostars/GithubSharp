@@ -135,6 +135,7 @@
     <Compile Include="Services\IAuthProvider.cs" />
     <Compile Include="Services\Implementation\BasicAuthenticationProvider.cs" />
     <Compile Include="Services\Implementation\NullLogger.cs" />
+    <Compile Include="Services\Implementation\AnonymousAuthenticationProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
