@@ -2,7 +2,7 @@ using System;
 using System.Net;
 using GithubSharp.Core.Services;
 
-namespace DevBadges.Infrastructure.BadgeProviders
+namespace GithubSharp.Core.Services.Implementation
 {
 	/// <summary>
 	/// Anonymous authentication provider to use in cases when there is no need to authenticate,
